@@ -188,6 +188,37 @@ anyone without a mail client configured. Test end to end after wiring it.
   in `Person` schema.
 - **Business hours, response time, languages** — presented as commitments on the site.
 
+
+## Service pages — drafts that need Sayed's pass
+
+The six service lines are now separate pages under `/services/<slug>/`, and `services.html`
+is a hub that links to them. Splitting them means each targets its own query cluster instead
+of six competing for one URL.
+
+**These are drafts, not finished copy.** They cover methodology and decision-framing, which
+is stable professional knowledge. Everything that would need first-hand experience was left
+out rather than invented:
+
+- No client results, statistics, prices or durations stated as fact
+- No regulatory or licensing specifics — the market entry page explicitly routes licensing
+  and legal execution to a licensed corporate services provider or legal counsel
+- No claims about Stratedge's track record
+
+Each page runs 770–970 words. The roadmap target was 1,200–1,800, and the gap is deliberate:
+the remaining depth should be Sayed's — worked examples, sector specifics, what he has seen
+go wrong. That is also the part that will differentiate these pages from every competitor
+running the same generic service copy.
+
+**What to add per page, in priority order:**
+
+1. One worked example per service, anonymised if necessary
+2. Sector-specific detail where the approach genuinely differs
+3. Anything he would say to a client that no competitor would put in writing
+
+Structure per page: question-shaped H2s with self-contained answers (built for AI answer
+engines), signals-it-is-time list, client questions, methodology, deliverables, FAQ, related
+services. Each carries `Service`, `FAQPage`, `BreadcrumbList` and `WebPage` schema.
+
 ## Structured data: what still needs confirming
 
 Every page now carries a JSON-LD `@graph`. Three fields were deliberately left out rather
