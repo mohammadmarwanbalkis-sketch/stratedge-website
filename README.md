@@ -125,7 +125,84 @@ The small-screen experience is built, not inherited:
 - 16px form fields so iOS never zooms on focus, larger tap targets, and a dedicated layout for
   short landscape screens
 
-## Before launch — checklist
+
+## Launch checklist — the five things only you can do
+
+Everything else in Phase 0 and Phase 1 of the roadmap is done. These five need your
+accounts or the client's confirmation.
+
+### 1. Point the real domain (blocks everything else)
+
+Search authority accumulates against a domain, so every week on the `github.io` address is
+authority thrown away. Once the domain is registered:
+
+```bash
+# from the repo root — swap the placeholder for the real domain everywhere
+grep -rl "www.stratedgeconsultancy.com" . --include="*.html" --include="*.xml" --include="*.txt" \
+  | xargs sed -i '' 's|https://www\.stratedgeconsultancy\.com|https://YOURDOMAIN.com|g'
+
+# tell GitHub Pages about it, then set the same domain in Settings → Pages
+echo "YOURDOMAIN.com" > CNAME
+git add -A && git commit -m "Point site at production domain" && git push
+```
+
+DNS at your registrar: four `A` records for the apex pointing at `185.199.108.153`,
+`185.199.109.153`, `185.199.110.153`, `185.199.111.153`, plus a `CNAME` for `www`
+pointing at `mohammadmarwanbalkis-sketch.github.io`. Then tick **Enforce HTTPS**.
+
+### 2. Turn on analytics
+
+Open `assets/js/main.js`, find `GA4_ID` near the top, paste your Measurement ID:
+
+```js
+var GA4_ID = 'G-XXXXXXXXXX';
+```
+
+Left empty, no analytics script loads and no cookies are set. One edit switches it on
+across all five pages.
+
+### 3. Verify in Search Console and Bing
+
+Use the **DNS TXT** method in both — it survives redeploys, unlike the HTML-file method.
+Submit `https://YOURDOMAIN.com/sitemap.xml` in each once verified. Bing matters more than
+its market share suggests: it is a retrieval source for several AI assistants.
+
+### 4. Give the form somewhere to post
+
+Create an endpoint (Formspree, Web3Forms, Getform) and add it to the form tag in
+`contact.html`:
+
+```html
+<form class="form" data-validate data-endpoint="https://formspree.io/f/XXXX">
+```
+
+Until then the form validates and hands off to the visitor's mail client, which loses
+anyone without a mail client configured. Test end to end after wiring it.
+
+### 5. Confirm the content the client owns
+
+- **Email address** — `sayed.dahdah@stratededgeconcultancy.com` as given in the brief, and
+  the spelling looks like it contains typos. It appears on the contact page, in the footer,
+  and in the structured data.
+- **Sayed's job title** — "Managing Partner" is an assumption, and it is now also asserted
+  in `Person` schema.
+- **Business hours, response time, languages** — presented as commitments on the site.
+
+## Structured data: what still needs confirming
+
+Every page now carries a JSON-LD `@graph`. Three fields were deliberately left out rather
+than guessed, because inventing them would put false facts in machine-readable form:
+
+| Field | Why it is missing | Add it when |
+|---|---|---|
+| `geo` coordinates + `streetAddress` | No office address in the brief | The Google Business Profile is verified — that becomes the authoritative source |
+| `sameAs` | No social profiles supplied | LinkedIn and Instagram are live; add the URLs to the array in each page's `@graph` |
+| `openingHours` | Hours never confirmed | The client confirms them |
+
+Validate any changes at [Rich Results Test](https://search.google.com/test/rich-results) and
+[Schema Markup Validator](https://validator.schema.org/).
+
+## Original build notes — checklist
 
 1. **Domain / canonical URLs.** Every page currently uses `https://www.stratedgeconsultancy.com`
    in its `<link rel="canonical">`, Open Graph tags, `robots.txt` and `sitemap.xml`.
@@ -158,7 +235,7 @@ The small-screen experience is built, not inherited:
 - Breakpoints: 1180 / 1080 / 900 (tablet + burger menu + action bar) / 760 (swipe carousels) /
   560 (phone), plus a short-landscape rule. Add `class="snap"` to any grid to turn it into a
   swipeable row below 760px.
-- CSS and JS are linked with `?v=6`. Bump that number whenever you edit them so browsers and CDNs
+- CSS and JS are linked with `?v=7`. Bump that number whenever you edit them so browsers and CDNs
   pick up the change instead of serving a cached copy.
 - The navigation and footer are duplicated in each HTML file; a change to one must be repeated in
   the other three.

@@ -5,6 +5,27 @@
 (function () {
   'use strict';
 
+  /* ---------------------------------------------------------------
+     CONFIGURATION
+     Paste your GA4 Measurement ID below to switch analytics on
+     site-wide. Left empty, no analytics script is loaded at all and
+     no cookies are set.
+  --------------------------------------------------------------- */
+  var GA4_ID = '';            // e.g. 'G-XXXXXXXXXX'
+
+  function analytics() {
+    if (!GA4_ID) return;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA4_ID, { anonymize_ip: true });
+  }
+
   var RM   = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var FINE = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
   var $  = function (s, c) { return (c || document).querySelector(s); };
@@ -686,6 +707,7 @@
   }
 
   function init() {
+    analytics();
     chrome(); preloader(); navigation(); reveals(); cursor(); cards();
     counters(); scrollFX(); explorer(); rail(); heroCanvas();
     pauseOffscreen(); accordion(); scrollspy(); forms();

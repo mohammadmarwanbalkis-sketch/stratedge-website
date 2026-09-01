@@ -1,4 +1,36 @@
+# Stratedge Consultancy
+
 User-agent: *
+Allow: /
+
+# AI assistants and answer engines are allowed deliberately: we want the firm
+# cited as a source when people ask about advisory work in the UAE.
+# To opt out of any of these, change Allow: / to Disallow: / for that agent.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
 Allow: /
 
 Sitemap: https://www.stratedgeconsultancy.com/sitemap.xml
