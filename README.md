@@ -134,6 +134,9 @@ obvious, and the density read as mess. Measured before the change: logo 28px (37
 bar, second line ~6px), 38 micro-labels on the home page, 5 rail + 4 grid overlays, 101 words
 above the fold and no plain statement of what the firm sells.
 
+Applied across the whole site: home, about, services hub, contact, the six service pages
+and the 404. Each top-level page carries its own Dubai photograph so they do not repeat.
+
 What changed:
 
 - **Logo 28px → 48px** in a taller nav bar, so the full lockup is legible
@@ -297,7 +300,7 @@ Validate any changes at [Rich Results Test](https://search.google.com/test/rich-
 - Breakpoints: 1180 / 1080 / 900 (tablet + burger menu + action bar) / 760 (swipe carousels) /
   560 (phone), plus a short-landscape rule. Add `class="snap"` to any grid to turn it into a
   swipeable row below 760px.
-- CSS and JS are linked with `?v=8`. Bump that number whenever you edit them so browsers and CDNs
+- CSS and JS are linked with `?v=9`. Bump that number whenever you edit them so browsers and CDNs
   pick up the change instead of serving a cached copy.
 - The navigation and footer are duplicated in each HTML file; a change to one must be repeated in
   the other three.

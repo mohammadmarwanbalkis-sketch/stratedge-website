@@ -1097,6 +1097,9 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   opacity:.1;pointer-events:none}
 .close__tri path{fill:none;stroke:var(--red);stroke-width:3}
 
+.v3 .phero__grid{align-items:start}
+.v3 .phero__panel{margin-top:.4rem}
+
 /* ---- 10. RESPONSIVE ----------------------------------------------------- */
 @media (max-width:1080px){
   .big-svc{grid-template-columns:repeat(2,1fr)}

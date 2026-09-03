@@ -298,7 +298,7 @@
  ]
 }
 </script>
-<link rel="stylesheet" href="assets/css/style.css?v=8">
+<link rel="stylesheet" href="assets/css/style.css?v=9">
 </head>
 <body class="is-loading">
 <a class="skip" href="#main">Skip to content</a>
@@ -354,36 +354,35 @@
   </div>
 </div>
 
-<main id="main">
+<main id="main" class="v3">
 
-  <section class="phero">
-    <div class="hatch hatch--fade" aria-hidden="true"></div>
-    <div class="rails" aria-hidden="true"><div class="rails__in"><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
-    <div class="glow glow--red glow--float" style="width:540px;height:540px;right:-11%;top:-34%" aria-hidden="true"></div>
-    <div class="container" style="position:relative;z-index:2">
+  <section class="hero3">
+    <div class="glow glow--red glow--float" style="width:520px;height:520px;left:-16%;top:-18%;opacity:.5" aria-hidden="true"></div>
+    <div class="container">
       <div class="crumbs"><a href="index.html">Home</a> / <span>Contact</span></div>
-      <div class="phero__grid" style="margin-bottom:clamp(26px,3.4vw,44px)">
-        <div>
+      <div class="hero3__grid">
+        <div class="hero3__copy">
           <span class="eyebrow eyebrow--dot">Contact</span>
-          <h1 class="h1 split" style="margin-top:1rem">Let&rsquo;s talk about the decision in front of you.</h1>
-          <p class="lead" style="margin-top:1.2rem">Send a short outline of the challenge, or call directly. Introductory conversations are confidential and carry no obligation.</p>
+          <h1 class="h-mega split">Start with a conversation.</h1>
+          <p class="say">Send a short outline of the challenge, or call directly. Introductory conversations are confidential and carry no obligation.</p>
+          <div class="btn-row"><a class="btn btn--lg" href="tel:+971508996838">+971 50 899 6838 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a><a class="btn btn--ghost btn--lg" href="https://wa.me/971508996838" target="_blank" rel="noopener">WhatsApp <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></a></div>
         </div>
-        <aside class="panel ticks phero__panel" data-reveal="up" style="--d:.2s">
-          <div class="panel__head"><span class="meta">Direct line</span><span class="meta meta--red">Dubai &middot; UAE</span></div>
-          <div class="panel__body">
-            <div class="rows">
-              <div class="row"><span class="meta">Contact</span><b>Sayed Dahdah</b></div>
-              <div class="row"><span class="meta">Role</span><b>Managing Partner</b></div>
-              <div class="row"><span class="meta">Response</span><b>One business day</b></div>
-            </div>
-            <div class="btn-row" style="margin-top:1.2rem;display:grid">
-              <a class="btn btn--red" href="tel:+971508996838">+971 50 899 6838 <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
-            </div>
+        <div class="hero3__media" data-reveal="scale" style="--d:.15s">
+          <div class="hero3__clip">
+            <picture>
+              <source media="(max-width:900px)" srcset="assets/img/contact-hero-sm.webp">
+              <img src="assets/img/contact-hero.webp" width="1040" height="1387" fetchpriority="high" alt="Dubai skyline">
+            </picture>
           </div>
-        </aside>
+          <div class="hero3__mark" aria-hidden="true"><span>DXB</span></div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="contact-cards snap" data-stagger="0.08">
+  <section class="section section--tight">
+    <div class="container">
+      <div class="contact-cards">
         <a class="ccard" href="tel:+971508996838" data-reveal="up">
           <small class="meta">Call or WhatsApp</small><b>+971 50 899 6838</b>
           <p>Available during UAE business hours</p>
@@ -401,19 +400,14 @@
   </section>
 
   <section class="section">
-    <div class="rails" aria-hidden="true"><div class="rails__in"><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
-    <div class="container" style="position:relative;z-index:1">
+    <div class="container">
       <div class="grid g-form">
         <div>
-          <div class="shead__i"><span class="meta meta--red">01</span><span class="eyebrow">Enquiry</span></div>
-          <h2 class="h2 split">Tell us what you are working on.</h2>
-          <p style="margin-top:.9rem;max-width:52ch">The more context you can share, the more useful the first conversation will be.</p>
-
+          <div style="max-width:24ch;margin-bottom:clamp(28px,3.6vw,48px)"><span class="eyebrow">Enquiry</span><h2 class="h-big" style="margin-top:.9rem">Tell us what you are working on.</h2></div>
           <div class="form-ok" style="margin-top:1.4rem"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg>
             <div><strong>Thank you &mdash; your enquiry is ready to send.</strong><br>
             If your email application did not open, write to <a href="mailto:sayed.dahdah@stratededgeconcultancy.com" style="color:var(--red)">sayed.dahdah@stratededgeconcultancy.com</a> or message us on WhatsApp and we will respond within one business day.</div>
           </div>
-
           <form class="form" data-validate data-endpoint="" style="margin-top:1.4rem" novalidate>
             <div class="form__row">
               <div class="field"><label for="name">Full name *</label>
@@ -454,27 +448,20 @@
             <p class="form__note">Fields marked * are required.</p>
           </form>
         </div>
-
         <aside data-reveal="up" style="--d:.12s">
           <div class="panel ticks">
             <div class="panel__head"><span class="meta">What happens next</span><span class="meta meta--red">03 steps</span></div>
             <div class="panel__body">
               <div class="rows">
                 <div class="row" style="align-items:flex-start;flex-direction:column;gap:.3rem">
-                  <span class="meta meta--red">Step 01</span>
-                  <b>We review your enquiry</b>
-                  <p style="font-size:.87rem">Read by a senior adviser, not routed through a call centre.</p>
-                </div>
+                  <span class="meta meta--red">Step 01</span><b>We review your enquiry</b>
+                  <p style="font-size:.87rem">Read by a senior adviser, not routed through a call centre.</p></div>
                 <div class="row" style="align-items:flex-start;flex-direction:column;gap:.3rem">
-                  <span class="meta meta--red">Step 02</span>
-                  <b>Introductory call</b>
-                  <p style="font-size:.87rem">A short, confidential conversation to understand the situation.</p>
-                </div>
+                  <span class="meta meta--red">Step 02</span><b>Introductory call</b>
+                  <p style="font-size:.87rem">A short, confidential conversation to understand the situation.</p></div>
                 <div class="row" style="align-items:flex-start;flex-direction:column;gap:.3rem">
-                  <span class="meta meta--red">Step 03</span>
-                  <b>Written proposal</b>
-                  <p style="font-size:.87rem">Scope, deliverables, timeline and fee &mdash; agreed before work starts.</p>
-                </div>
+                  <span class="meta meta--red">Step 03</span><b>Written proposal</b>
+                  <p style="font-size:.87rem">Scope, deliverables, timeline and fee &mdash; agreed before work starts.</p></div>
               </div>
             </div>
           </div>
@@ -486,51 +473,39 @@
     </div>
   </section>
 
-  <section class="section section--tight surface-paper">
-    <div class="container">
-      
-      <div class="shead">
-        <div>
-          <div class="shead__i"><span class="meta meta--red">02</span><span class="eyebrow">Questions</span></div>
-          <h2 class="h2 split">Before you get in touch.</h2>
-        </div>
-        <div class="shead__r" data-reveal="up" style="--d:.12s"><p>The questions owners and leadership teams ask us most often, answered plainly.</p></div>
-      </div>
-      <div class="grid g-2" style="gap:0 clamp(24px,3.4vw,56px)">
-        <div class="acc">
+  <section class="section surface-paper">
+    <div class="container container--narrow" style="max-width:900px">
+      <div style="max-width:28ch;margin-bottom:clamp(28px,3.6vw,48px)"><span class="eyebrow">Questions</span><h2 class="h-big" style="margin-top:.9rem">Before you get in touch.</h2></div>
+      <div class="acc">
           <div class="acc__i">
-            <button class="acc__h" type="button" aria-expanded="false"><h4 class="h4">What happens after I get in touch?</h4><span class="acc__ic" aria-hidden="true"></span></button>
+            <button class="acc__h" type="button" aria-expanded="false"><h3 class="h4">What happens after I get in touch?</h3><span class="acc__ic" aria-hidden="true"></span></button>
             <div class="acc__c"><div><p>We arrange a short introductory call, usually within one business day, to understand the situation and establish whether we are the right firm for it. There is no cost and no obligation attached to that conversation.</p></div></div>
           </div>
           <div class="acc__i">
-            <button class="acc__h" type="button" aria-expanded="false"><h4 class="h4">How is an engagement scoped and priced?</h4><span class="acc__ic" aria-hidden="true"></span></button>
+            <button class="acc__h" type="button" aria-expanded="false"><h3 class="h4">How is an engagement scoped and priced?</h3><span class="acc__ic" aria-hidden="true"></span></button>
             <div class="acc__c"><div><p>Scope is defined around the decision you are facing rather than a standard package. Once the objective is clear we issue a written proposal setting out the approach, deliverables, timeline and fee. Work begins only after that is agreed.</p></div></div>
           </div>
           <div class="acc__i">
-            <button class="acc__h" type="button" aria-expanded="false"><h4 class="h4">Do you work with startups as well as established businesses?</h4><span class="acc__ic" aria-hidden="true"></span></button>
+            <button class="acc__h" type="button" aria-expanded="false"><h3 class="h4">Do you work with startups as well as established businesses?</h3><span class="acc__ic" aria-hidden="true"></span></button>
             <div class="acc__c"><div><p>Yes. We work with founders and SMEs building the first version of a plan, and with established companies restructuring, expanding or preparing for investment. What matters is that there is a real decision to be made.</p></div></div>
           </div>
-        </div>
-        <div class="acc">
           <div class="acc__i">
-            <button class="acc__h" type="button" aria-expanded="false"><h4 class="h4">How long does a typical engagement take?</h4><span class="acc__ic" aria-hidden="true"></span></button>
+            <button class="acc__h" type="button" aria-expanded="false"><h3 class="h4">How long does a typical engagement take?</h3><span class="acc__ic" aria-hidden="true"></span></button>
             <div class="acc__c"><div><p>A focused diagnostic is usually measured in weeks; a full strategy or market entry engagement in months. The timeline is confirmed in the proposal and we hold ourselves to it.</p></div></div>
           </div>
           <div class="acc__i">
-            <button class="acc__h" type="button" aria-expanded="false"><h4 class="h4">Which sectors do you cover?</h4><span class="acc__ic" aria-hidden="true"></span></button>
+            <button class="acc__h" type="button" aria-expanded="false"><h3 class="h4">Which sectors do you cover?</h3><span class="acc__ic" aria-hidden="true"></span></button>
             <div class="acc__c"><div><p>Most frequently real estate, retail and consumer, hospitality, healthcare, technology and professional services. Where a sector falls outside our direct experience we will say so before accepting the engagement.</p></div></div>
           </div>
           <div class="acc__i">
-            <button class="acc__h" type="button" aria-expanded="false"><h4 class="h4">Is the information I share kept confidential?</h4><span class="acc__ic" aria-hidden="true"></span></button>
+            <button class="acc__h" type="button" aria-expanded="false"><h3 class="h4">Is the information I share kept confidential?</h3><span class="acc__ic" aria-hidden="true"></span></button>
             <div class="acc__c"><div><p>Yes. Commercial information is treated as confidential from the first conversation onward, and we are glad to sign a non-disclosure agreement before any detail is exchanged.</p></div></div>
           </div>
-        </div>
       </div>
     </div>
   </section>
 
 </main>
-
 <footer class="footer">
   <div class="container">
     <div class="footer__top">
@@ -596,6 +571,6 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.8c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.6.1a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2a.5.5 0 000-.5c0-.1-.6-1.4-.8-1.9s-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 2.9 2.9 0 00-.9 2.2 5 5 0 001.1 2.7 11.5 11.5 0 004.4 3.9c1.6.6 2.2.7 3 .6a2.6 2.6 0 001.7-1.2 2.1 2.1 0 00.1-1.2c0-.1-.2-.2-.6-.3z"/></svg>
 </a>
 
-<script src="assets/js/main.js?v=8" defer></script>
+<script src="assets/js/main.js?v=9" defer></script>
 </body>
 </html>
