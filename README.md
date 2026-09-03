@@ -126,6 +126,37 @@ The small-screen experience is built, not inherited:
   short landscape screens
 
 
+
+## v3 redesign — bold & angular
+
+Review feedback was that the logo read small, the page felt bland, the purpose was not
+obvious, and the density read as mess. Measured before the change: logo 28px (37% of the nav
+bar, second line ~6px), 38 micro-labels on the home page, 5 rail + 4 grid overlays, 101 words
+above the fold and no plain statement of what the firm sells.
+
+What changed:
+
+- **Logo 28px → 48px** in a taller nav bar, so the full lockup is legible
+- **Plain-language H1** — "We help UAE businesses decide what to do next" — replacing an
+  abstract line, plus a six-item service strip inside the first screen
+- **Photography** from Unsplash (free for commercial use, no attribution required):
+  a dusk skyline in the hero and a storm-lit skyline behind the dark section
+- **Angular motif** — a cut corner on the hero image filled with the brand triangle, a
+  wipe-to-black on service cards, a large triangle outline in the closing panel
+- **Noise cut** — home page from 1,415 to 291 words and 38 micro-labels to 5; depth now
+  lives on the six service pages, which is what they are for
+
+### Photography licensing
+
+Images are from Unsplash under the [Unsplash License](https://unsplash.com/license), which
+permits commercial use without attribution.
+
+**One caveat to decide on:** Emaar has historically asserted rights over commercial use of
+Burj Khalifa imagery in the UAE. Wide skyline shots that include it are common practice and
+low risk; a tight hero shot of the tower alone sits at the riskier end. The images used here
+are wide cityscapes rather than isolated portraits of the tower. If the client wants zero
+exposure, swap `hero-dubai.webp` and `band-storm.webp` for architecture that excludes it.
+
 ## Launch checklist — the five things only you can do
 
 Everything else in Phase 0 and Phase 1 of the roadmap is done. These five need your
@@ -266,7 +297,7 @@ Validate any changes at [Rich Results Test](https://search.google.com/test/rich-
 - Breakpoints: 1180 / 1080 / 900 (tablet + burger menu + action bar) / 760 (swipe carousels) /
   560 (phone), plus a short-landscape rule. Add `class="snap"` to any grid to turn it into a
   swipeable row below 760px.
-- CSS and JS are linked with `?v=7`. Bump that number whenever you edit them so browsers and CDNs
+- CSS and JS are linked with `?v=8`. Bump that number whenever you edit them so browsers and CDNs
   pick up the change instead of serving a cached copy.
 - The navigation and footer are duplicated in each HTML file; a change to one must be repeated in
   the other three.
