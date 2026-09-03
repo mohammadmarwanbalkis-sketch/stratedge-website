@@ -179,6 +179,22 @@ expression of the same idea:
 
 Checked at 375px, 768px and 1440px on every page. No horizontal overflow anywhere.
 
+### Photographic cards
+
+Each service has its own photograph, used as a card background and shared across the home page
+and the services hub. Six unrelated photos would have looked like a scrapbook, so each is
+converted to a duotone in the brand ink with a faintly warm highlight — different images, one
+visual family.
+
+- **Desktop:** the card wipe reveals the photograph instead of flat black
+- **Mobile:** alternating cards keep their photograph on permanently, since touch has no hover
+- The closing panel carries a city photograph behind the ink on every page
+
+One trap worth recording: a relative `url()` inside a CSS custom property resolves against the
+**stylesheet**, not the page that declares it. `--img:url(assets/img/x.webp)` in the HTML was
+requesting `/assets/css/assets/img/x.webp`. The paths are written `../img/x.webp` for that
+reason, which also makes them correct from every page depth.
+
 ## Launch checklist — the five things only you can do
 
 Everything else in Phase 0 and Phase 1 of the roadmap is done. These five need your
@@ -319,7 +335,7 @@ Validate any changes at [Rich Results Test](https://search.google.com/test/rich-
 - Breakpoints: 1180 / 1080 / 900 (tablet + burger menu + action bar) / 760 (swipe carousels) /
   560 (phone), plus a short-landscape rule. Add `class="snap"` to any grid to turn it into a
   swipeable row below 760px.
-- CSS and JS are linked with `?v=10`. Bump that number whenever you edit them so browsers and CDNs
+- CSS and JS are linked with `?v=12`. Bump that number whenever you edit them so browsers and CDNs
   pick up the change instead of serving a cached copy.
 - The navigation and footer are duplicated in each HTML file; a change to one must be repeated in
   the other three.
