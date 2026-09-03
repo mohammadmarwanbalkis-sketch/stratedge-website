@@ -1025,12 +1025,14 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 /* ---- 5. THE OFFER STRIP: what we do, before any scrolling --------------- */
 .offer{border-top:2px solid var(--ink);margin-top:clamp(26px,4vh,52px)}
 .offer__row{display:grid;grid-template-columns:repeat(6,1fr)}
-.offer a{display:block;padding:1.15rem 1rem 1.3rem 0;border-right:1px solid var(--line);
+.offer__row>*{display:block;padding:1.15rem 1rem 1.3rem 0;border-right:1px solid var(--line);
   transition:background .3s,padding-left .35s var(--e-out)}
-.offer a:last-child{border-right:0}
+.offer__row>*:last-child{border-right:0}
 .offer a:hover{background:var(--paper);padding-left:.6rem}
+.offer__row>div b{font-weight:600}
+.offer--4 .offer__row{grid-template-columns:repeat(4,1fr)}
 .offer i{display:block;font-family:var(--f-mono);font-style:normal;font-size:.62rem;
-  letter-spacing:.14em;color:var(--red);margin-bottom:.5rem}
+  letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem}
 .offer b{display:block;font-family:var(--f-display);font-weight:600;font-size:.98rem;
   letter-spacing:-.025em;line-height:1.2}
 
@@ -1107,9 +1109,12 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   .big-svc{grid-template-columns:repeat(2,1fr)}
   .steps4{grid-template-columns:repeat(2,1fr)}
   .offer__row{grid-template-columns:repeat(3,1fr)}
-  .offer a{border-bottom:1px solid var(--line)}
-  .offer a:nth-child(3n){border-right:0}
-  .offer a:nth-child(n+4){border-bottom:0}
+  .offer__row>*{border-bottom:1px solid var(--line)}
+  .offer__row>*:nth-child(3n){border-right:0}
+  .offer__row>*:nth-child(n+4){border-bottom:0}
+  .offer--4 .offer__row{grid-template-columns:repeat(2,1fr)}
+  .offer--4 .offer__row>*:nth-child(2n){border-right:0}
+  .offer--4 .offer__row>*:nth-child(n+3){border-bottom:0}
 }
 @media (max-width:900px){
   .hero3__grid{grid-template-columns:1fr;gap:clamp(24px,4vw,40px)}
@@ -1123,8 +1128,8 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 @media (max-width:620px){
   .big-svc,.steps4{grid-template-columns:1fr}
   .offer__row{grid-template-columns:repeat(2,1fr)}
-  .offer a:nth-child(2n){border-right:0}
-  .offer a:nth-child(n+5){border-bottom:0}
+  .offer__row>*:nth-child(2n){border-right:0}
+  .offer__row>*:nth-child(n+5){border-bottom:0}
 }
 
 /* =========================================================================
@@ -1148,7 +1153,7 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 
   /* --- offer strip: the "what we do" answer, kept compact --- */
   .offer{margin-top:26px}
-  .offer a{padding:.95rem .7rem 1rem 0}
+  .offer__row>*{padding:.95rem .7rem 1rem 0}
   .offer i{margin-bottom:.35rem}
   .offer b{font-size:.92rem}
 

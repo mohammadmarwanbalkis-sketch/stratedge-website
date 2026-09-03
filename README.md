@@ -189,6 +189,10 @@ visual family.
 - **Desktop:** the card wipe reveals the photograph instead of flat black
 - **Mobile:** alternating cards keep their photograph on permanently, since touch has no hover
 - The closing panel carries a city photograph behind the ink on every page
+- **Service pages** use the same photograph in full colour in their hero, so an image is muted
+  in the grid and comes alive when you land on its page. Their hero now matches every other
+  page — copy left, angular photo right — with the old boxed panel replaced by a four-item
+  strip beneath
 
 One trap worth recording: a relative `url()` inside a CSS custom property resolves against the
 **stylesheet**, not the page that declares it. `--img:url(assets/img/x.webp)` in the HTML was
@@ -335,7 +339,7 @@ Validate any changes at [Rich Results Test](https://search.google.com/test/rich-
 - Breakpoints: 1180 / 1080 / 900 (tablet + burger menu + action bar) / 760 (swipe carousels) /
   560 (phone), plus a short-landscape rule. Add `class="snap"` to any grid to turn it into a
   swipeable row below 760px.
-- CSS and JS are linked with `?v=12`. Bump that number whenever you edit them so browsers and CDNs
+- CSS and JS are linked with `?v=14`. Bump that number whenever you edit them so browsers and CDNs
   pick up the change instead of serving a cached copy.
 - The navigation and footer are duplicated in each HTML file; a change to one must be repeated in
   the other three.
