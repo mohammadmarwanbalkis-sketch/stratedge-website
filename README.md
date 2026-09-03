@@ -160,6 +160,25 @@ low risk; a tight hero shot of the tower alone sits at the riskier end. The imag
 are wide cityscapes rather than isolated portraits of the tower. If the client wants zero
 exposure, swap `hero-dubai.webp` and `band-storm.webp` for architecture that excludes it.
 
+
+## Mobile
+
+The desktop design carries much of its character in hover states, which a touch device never
+shows. Rather than let the phone layout fall back to plain text blocks, it gets its own
+expression of the same idea:
+
+- **Service cards alternate filled and outlined** on small screens, so the stack has the same
+  black-and-red rhythm the hover produces on desktop
+- **Hero tightened** so the photograph and its red corner reach the first screen instead of
+  sitting a scroll below it
+- **Card heights sized to content** rather than to a desktop grid — the services section went
+  from 1,625px to about 1,150px
+- **Label/value rows stack** instead of squeezing long values into a narrow right column
+- **Footer condensed**; the oversized wordmark is hidden below 620px
+- Form fields stay at 16px so iOS never zooms on focus
+
+Checked at 375px, 768px and 1440px on every page. No horizontal overflow anywhere.
+
 ## Launch checklist — the five things only you can do
 
 Everything else in Phase 0 and Phase 1 of the roadmap is done. These five need your
@@ -300,7 +319,7 @@ Validate any changes at [Rich Results Test](https://search.google.com/test/rich-
 - Breakpoints: 1180 / 1080 / 900 (tablet + burger menu + action bar) / 760 (swipe carousels) /
   560 (phone), plus a short-landscape rule. Add `class="snap"` to any grid to turn it into a
   swipeable row below 760px.
-- CSS and JS are linked with `?v=9`. Bump that number whenever you edit them so browsers and CDNs
+- CSS and JS are linked with `?v=10`. Bump that number whenever you edit them so browsers and CDNs
   pick up the change instead of serving a cached copy.
 - The navigation and footer are duplicated in each HTML file; a change to one must be repeated in
   the other three.

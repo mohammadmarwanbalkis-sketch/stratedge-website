@@ -1124,3 +1124,87 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   .offer a:nth-child(2n){border-right:0}
   .offer a:nth-child(n+5){border-bottom:0}
 }
+
+/* =========================================================================
+   v3 — MOBILE
+   The desktop character lives in hover states that touch devices never see,
+   so the phone layout needs its own expression of the same idea.
+   ========================================================================= */
+
+/* keep decorative glows from ever forcing a horizontal scroll */
+.glow{max-width:100vw}
+
+@media (max-width:900px){
+  /* --- hero: tighter, so the photograph reaches the first screen --- */
+  .hero3{padding-top:calc(var(--nav-h) + 22px)}
+  .hero3__grid{gap:22px}
+  .hero3__copy{padding-bottom:0}
+  .hero3 h1{margin-bottom:.9rem}
+  .hero3 .say{font-size:1.02rem;line-height:1.5}
+  .hero3 .btn-row{margin-top:1.4rem;gap:.6rem}
+  .hero3__media{aspect-ratio:3/2}
+
+  /* --- offer strip: the "what we do" answer, kept compact --- */
+  .offer{margin-top:26px}
+  .offer a{padding:.95rem .7rem 1rem 0}
+  .offer i{margin-bottom:.35rem}
+  .offer b{font-size:.92rem}
+
+  /* --- sections breathe less --- */
+  .slab{padding-block:clamp(52px,11vw,76px)}
+  .close{padding-block:clamp(50px,11vw,74px)}
+}
+
+@media (max-width:620px){
+  /* --- service cards: sized to their content, not to a desktop grid --- */
+  .bs{min-height:0;padding:1.35rem 1.25rem 1.5rem}
+  .bs h3{margin-top:1.1rem;font-size:1.32rem}
+  .bs p{margin-top:.5rem}
+  .bs__go{margin-top:1rem}
+
+  /* Alternating filled cards give the stack rhythm on a device that
+     cannot hover. Same ink, same red — just always on. */
+  .big-svc .bs:nth-child(3n+1)::before{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+  .big-svc .bs:nth-child(3n+1) h3{color:#fff}
+  .big-svc .bs:nth-child(3n+1) p{color:rgba(255,255,255,.7)}
+  .big-svc .bs:nth-child(3n+1) .bs__go{color:var(--red)}
+
+  /* --- phase numerals carry the section on a narrow screen --- */
+  .st{padding:1.3rem 1.25rem 1.5rem}
+  .st__n{font-size:3.2rem}
+
+  /* --- headline breathing room on the narrowest phones --- */
+  .h-mega{font-size:clamp(2.45rem,10.5vw,3rem)}
+  .h-big{font-size:clamp(1.85rem,8vw,2.4rem)}
+
+  /* --- footer was a third of the scroll depth --- */
+  .footer{padding-top:clamp(38px,9vw,54px)}
+  .footer__top{gap:26px}
+  .footer__brand p{max-width:none}
+  .footer__brand .btn-row{margin-top:1.1rem}
+  .footer__links{gap:.45rem}
+  .footer__word{display:none}
+  .footer__bot{margin-top:26px;gap:.4rem}
+
+  /* --- contact + about blocks --- */
+  .person{padding:1.15rem}
+  .person__av{max-width:132px}
+  .slab__pts{margin-top:26px;padding-top:20px;gap:1.2rem}
+}
+
+/* touch devices of any width: no hover means the wipe never fires */
+@media (hover:none){
+  .bs::before{transition:none}
+  .card:hover{transform:none}
+}
+
+@media (max-width:620px){
+  /* label/value rows stack instead of squeezing the value into a narrow column */
+  .row{flex-direction:column;align-items:flex-start;gap:.25rem}
+  .row b{text-align:left!important;max-width:none!important}
+  .panel__head{padding-bottom:.7rem}
+  /* service-page hero: pull the panel closer to the copy */
+  .v3 .phero__panel{margin-top:1.4rem}
+  .viz-frame{height:clamp(120px,34vw,150px)}
+  .crumbs{font-size:.6rem;letter-spacing:.14em}
+}
