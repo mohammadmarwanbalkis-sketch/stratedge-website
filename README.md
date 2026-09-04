@@ -259,6 +259,8 @@ anyone without a mail client configured. Test end to end after wiring it.
   and in the structured data.
 - **Sayed's job title** — "Managing Partner" is an assumption, and it is now also asserted
   in `Person` schema.
+- **His photograph** is live on the About page and referenced in `Person` schema. He should be
+  happy with this specific frame and crop before the site goes public.
 - **Business hours, response time, languages** — presented as commitments on the site.
 
 
