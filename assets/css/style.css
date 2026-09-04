@@ -1169,12 +1169,13 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   .bs p{margin-top:.5rem}
   .bs__go{margin-top:1rem}
 
-  /* Alternating filled cards give the stack rhythm on a device that
-     cannot hover. Same ink, same red — just always on. */
-  .big-svc .bs:nth-child(3n+1)::before{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
-  .big-svc .bs:nth-child(3n+1) h3{color:#fff}
-  .big-svc .bs:nth-child(3n+1) p{color:rgba(255,255,255,.7)}
-  .big-svc .bs:nth-child(3n+1) .bs__go{color:var(--red)}
+  /* Every card that has a photograph shows it, because a touch device
+     never triggers the hover. Filling only some of them read as a bug. */
+  .bs--photo::before{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+  .bs--photo h3{color:#fff}
+  .bs--photo p{color:rgba(255,255,255,.72)}
+  .bs--photo .bs__go{color:var(--red)}
+  .bs--photo .bs__n{color:var(--red)}
 
   /* --- phase numerals carry the section on a narrow screen --- */
   .st{padding:1.3rem 1.25rem 1.5rem}
@@ -1230,7 +1231,13 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 
 @media (max-width:620px){
   /* alternating cards keep their photograph on permanently */
-  .big-svc .bs:nth-child(3n+1) .bs__tag{color:rgba(255,255,255,.5)}
+  .bs--photo .bs__tag{color:rgba(255,255,255,.5)}
   .close__bg img{opacity:.34}
   .close__bg::after{background:linear-gradient(180deg,rgba(10,12,15,.9),rgba(10,12,15,.76))}
 }
+
+/* four-up variant that still collapses on small screens — an inline
+   grid-template-columns here silently outranked every media query */
+.big-svc--4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:1080px){.big-svc--4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.big-svc--4{grid-template-columns:1fr}}
