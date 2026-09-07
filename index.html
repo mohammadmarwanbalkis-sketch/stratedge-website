@@ -27,9 +27,9 @@
 <link rel="icon" href="assets/img/favicon-512.png" type="image/png" sizes="512x512">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@300;400;500&family=Poppins:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@300;400;500&family=Poppins:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@300;400;500&family=Poppins:wght@400;500;600&display=swap"></noscript>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -227,7 +227,7 @@
  ]
 }
 </script>
-<link rel="stylesheet" href="assets/css/style.css?v=17">
+<link rel="stylesheet" href="assets/css/style.css?v=18">
 </head>
 <body class="is-loading">
 <a class="skip" href="#main">Skip to content</a>
@@ -318,6 +318,51 @@
     </div>
   </section>
 
+  <!-- ================= PILLARS (the triangle) ================= -->
+  <section class="section pillars3" id="pillars">
+    <div class="container">
+      <div style="max-width:46ch;margin-bottom:clamp(28px,3.6vw,48px)">
+        <span class="eyebrow">How we think</span>
+        <h2 class="h-big" style="margin-top:.9rem">Three points. One edge.</h2>
+        <p class="say" style="margin-top:1rem">Our mark is a triangle for a reason. Every engagement runs on the same three
+          forces &mdash; and a plan that is missing one of them does not hold.</p>
+      </div>
+      <div class="pillars3__grid">
+        <div class="pillars3__mark" data-reveal="scale">
+          <svg viewBox="0 0 200 176" role="img" aria-label="The Stratedge triangle: research, innovation and growth">
+            <path d="M100 14 L186 162 L14 162 Z" fill="none" stroke="var(--line-2)" stroke-width="2"/>
+            <path d="M100 14 L186 162" fill="none" stroke="var(--orange)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M186 162 L14 162" fill="none" stroke="var(--red)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M14 162 L100 14" fill="none" stroke="var(--blue)" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="100" cy="14" r="7" fill="var(--blue)"/>
+            <circle cx="186" cy="162" r="7" fill="var(--orange)"/>
+            <circle cx="14" cy="162" r="7" fill="var(--red)"/>
+          </svg>
+        </div>
+        <div class="pillars3__list" data-stagger=".09">
+          <div class="pil pil--research" data-reveal>
+            <i>Trust &amp; expertise</i>
+            <h3>Research</h3>
+            <p>Evidence before opinion. We start with the market, the consumer and the numbers, so the
+              decision rests on something you can defend in a board meeting.</p>
+          </div>
+          <div class="pil pil--innovation" data-reveal>
+            <i>Creativity</i>
+            <h3>Innovation</h3>
+            <p>New answers rather than recycled ones. Where technology and AI genuinely change your
+              economics &mdash; and the order in which to adopt them.</p>
+          </div>
+          <div class="pil pil--growth" data-reveal>
+            <i>Bold action</i>
+            <h3>Growth</h3>
+            <p>Work that ships. Structure, cost and execution aligned so the strategy shows up in the
+              results, not only in the deck.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= SERVICES ================= -->
   <section class="section" id="services">
     <div class="container">
@@ -326,38 +371,44 @@
         <h2 class="h-big" style="margin-top:.9rem">Six ways we get brought in.</h2>
       </div>
       <div class="big-svc">
-        <a class="bs" style="--img:url(../img/svc-advertising-research.webp)" href="services/advertising-research/">
+        <a class="bs bs--research" style="--img:url(../img/svc-advertising-research.webp)" href="services/advertising-research/">
           <span class="bs__n">01</span>
+          <span class="bs__pillar">Research</span>
           <h3>Advertising Research</h3>
           <p>Consumer insight, campaigns, social and influencer &mdash; measured on effect.</p>
           <span class="bs__go">Read more <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></span>
         </a>
-        <a class="bs" style="--img:url(../img/svc-management-consultancy.webp)" href="services/management-consultancy/">
+        <a class="bs bs--growth" style="--img:url(../img/svc-management-consultancy.webp)" href="services/management-consultancy/">
           <span class="bs__n">02</span>
+          <span class="bs__pillar">Growth</span>
           <h3>Management Consultancy</h3>
           <p>Strategy, structure and performance, so growth stays profitable.</p>
           <span class="bs__go">Read more <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></span>
         </a>
-        <a class="bs" style="--img:url(../img/svc-marketing-research.webp)" href="services/marketing-research/">
+        <a class="bs bs--research" style="--img:url(../img/svc-marketing-research.webp)" href="services/marketing-research/">
           <span class="bs__n">03</span>
+          <span class="bs__pillar">Research</span>
           <h3>Marketing Research</h3>
           <p>Market analysis, positioning and journey mapping, before you commit.</p>
           <span class="bs__go">Read more <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></span>
         </a>
-        <a class="bs" style="--img:url(../img/svc-innovation-ai.webp)" href="services/innovation-ai/">
+        <a class="bs bs--innovation" style="--img:url(../img/svc-innovation-ai.webp)" href="services/innovation-ai/">
           <span class="bs__n">04</span>
+          <span class="bs__pillar">Innovation</span>
           <h3>Innovation &amp; AI</h3>
           <p>Where AI genuinely changes your economics &mdash; and in what order.</p>
           <span class="bs__go">Read more <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></span>
         </a>
-        <a class="bs" style="--img:url(../img/svc-sourcing-procurement.webp)" href="services/sourcing-procurement/">
+        <a class="bs bs--growth" style="--img:url(../img/svc-sourcing-procurement.webp)" href="services/sourcing-procurement/">
           <span class="bs__n">05</span>
+          <span class="bs__pillar">Growth</span>
           <h3>Sourcing &amp; Procurement</h3>
           <p>Better suppliers, better terms, cost out without losing reliability.</p>
           <span class="bs__go">Read more <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></span>
         </a>
-        <a class="bs" style="--img:url(../img/svc-project-development.webp)" href="services/project-development/">
+        <a class="bs bs--innovation" style="--img:url(../img/svc-project-development.webp)" href="services/project-development/">
           <span class="bs__n">06</span>
+          <span class="bs__pillar">Innovation</span>
           <h3>Project Development</h3>
           <p>Feasibility, financial analysis and the monitoring that holds a plan.</p>
           <span class="bs__go">Read more <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></span>
@@ -494,6 +545,6 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 20zm4.4-5.8c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.6.1a6.5 6.5 0 01-3.2-2.8c-.2-.4.2-.4.6-1.2a.5.5 0 000-.5c0-.1-.6-1.4-.8-1.9s-.4-.4-.6-.4h-.5a1 1 0 00-.7.3 2.9 2.9 0 00-.9 2.2 5 5 0 001.1 2.7 11.5 11.5 0 004.4 3.9c1.6.6 2.2.7 3 .6a2.6 2.6 0 001.7-1.2 2.1 2.1 0 00.1-1.2c0-.1-.2-.2-.6-.3z"/></svg>
 </a>
 
-<script src="assets/js/main.js?v=17" defer></script>
+<script src="assets/js/main.js?v=18" defer></script>
 </body>
 </html>

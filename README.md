@@ -20,15 +20,29 @@ website/
 
 ## Brand
 
+Taken from the client's brand guidelines (`Stratedge consultants-3.pdf`).
+
 | Token | Value | Use |
 |---|---|---|
 | White | `#ffffff` | Primary surface — the site is white-first throughout |
-| Brand red | `#d13a45` | Secondary colour, sampled from the logo triangle. Accents, CTAs, highlights |
-| Ink | `#0b0d10` | Text and the dark contrast sections |
+| Blue | `#518a9c` | Trust, stability, expertise. Carries the **Research** pillar |
+| Red | `#d0423a` | Energy, bold action. Carries the **Growth** pillar; primary CTA and accent |
+| Orange | `#f5b02f` | Creativity, innovation. Carries the **Innovation** pillar |
+| Ink | `#0a0e11` | Text and the dark contrast sections |
 | Paper | `#f7f7f8` | Alternating section background |
 
-Typography: **Sora** (headings), **Inter** (body), **JetBrains Mono** (labels and numbering),
-loaded from Google Fonts with system fallbacks.
+The blue and orange are *graphic* colours: on white they measure 3.8:1 and 1.9:1, which is fine
+for bars, rules and the triangle but unreadable as small type. Labels therefore use text-safe
+variants — `--blue-ink #3e6c7b`, `--orange-ink #8a6208`, `--red-ink #b8372f` — all above 4.5:1.
+Anywhere the colour sits on ink, the pure brand value is used instead.
+
+Typography: **Anton** (display headings), **Jost Light** (titles), **Poppins** (body and labels),
+loaded from Google Fonts with system fallbacks. The guidelines specify Posterama 2001 Light for
+the title role; it is a licensed Monotype face and cannot be served on the web without a
+purchased licence, so Jost stands in — the closest free geometric with the same wide, even,
+early-modern feel. **Anton ships a single weight**, so no rule asks it for bold; anything that
+needed a heavier small label was moved to Jost Medium rather than letting the browser
+synthesise a smeared faux-bold.
 
 Logo files were produced from the supplied PNG:
 `logo-light@900.png` is the original white wordmark (used on dark surfaces);
@@ -221,17 +235,39 @@ Deliverables on each service page are now the exact sub-services the guidelines 
 invented ones. Old URLs under `/services/` were replaced, so any link to the previous six
 will 404 — nothing had been indexed, so no redirects were added.
 
+**Colour, typography and the three pillars — applied.**
+
+*Colour.* The site now runs the guidelines' three values rather than the single red sampled
+from the logo file. Colour is not decorative: each of the three carries one pillar, and that
+mapping is the only reason a given element is blue rather than orange. See **Brand** above for
+the text-safe variants and why they exist.
+
+*Typography.* Anton, Jost and Poppins replaced Sora, Inter, JetBrains Mono and Instrument Serif
+across all eleven pages. Anton is condensed and set uppercase for `.h-mega`, `.h-big`, service
+card titles, the pillar names and the mobile menu, which is what gives the site its poster
+feel. See **Brand** above for the Posterama substitution and the single-weight constraint.
+
+*Brand pillars.* RESEARCH · INNOVATION · GROWTH — the three points of the triangle — are now a
+structural device rather than a statement:
+
+| Pillar | Colour | Meaning in the guidelines | Services |
+|---|---|---|---|
+| Research | Blue `#518a9c` | Trust, stability, expertise | Advertising Research, Marketing Research |
+| Innovation | Orange `#f5b02f` | Creativity | Innovation & AI, Project Development |
+| Growth | Red `#d0423a` | Energy, bold action | Management Consultancy, Sourcing & Procurement |
+
+- A `#pillars` section on the home page states the three, with the triangle drawn in the three
+  colours (`.pillars3`).
+- Every service card carries a `bs--research` / `bs--innovation` / `bs--growth` modifier that
+  sets `--pillar` and `--pillar-ink`, which drive its number, its corner label and the bar that
+  wipes in on hover. On touch devices the bar is always shown — on *every* card, not an
+  alternating subset, because a subset reads as a rendering fault rather than as a rhythm.
+- The four method steps walk the pillars: Diagnose = research, Design = innovation, Deliver and
+  Sustain = growth. The three commitments on the dark photo band use the three colours in
+  order, as an echo of the triangle.
+
 **Still outstanding from the guidelines:**
 
-- **Colour.** Guidelines specify three: `#518A9C` blue, `#D0423A` red, `#F5B02F` orange. The
-  site currently uses a single red (`#d13a45`, sampled from the logo file) on white and ink.
-  The stated red is also slightly different from the sampled one.
-- **Typography.** Guidelines specify Anton for headings, Posterama 2001 Light for titles and
-  Poppins for body. The site uses Sora, Inter, JetBrains Mono and Instrument Serif. Anton and
-  Poppins are free on Google Fonts; **Posterama is a licensed Monotype face and cannot be used
-  without a purchased web licence.**
-- **Brand pillars.** RESEARCH · INNOVATION · GROWTH — the three points of the triangle — are
-  not yet used as a structural device anywhere on the site.
 - **Vision and positioning copy** from the guidelines has not yet replaced the About page copy.
 
 ## Launch checklist — the five things only you can do
