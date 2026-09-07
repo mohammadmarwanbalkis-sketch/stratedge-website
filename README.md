@@ -199,6 +199,41 @@ One trap worth recording: a relative `url()` inside a CSS custom property resolv
 requesting `/assets/css/assets/img/x.webp`. The paths are written `../img/x.webp` for that
 reason, which also makes them correct from every page depth.
 
+
+## Brand guidelines — what they changed
+
+The client supplied `Stratedge consultants-3.pdf` (brand guidelines, 12 pages) after the site
+was built. It contradicted several things that had been assumed from the original brief.
+
+**Services — corrected.** The site was advertising six service lines that were invented to fit
+the brief's description. The guidelines define six different ones, and the site now matches:
+
+| Guidelines | Previously on the site |
+|---|---|
+| Advertising Research & Consultancies | Business Strategy & Growth |
+| Management Consultancies | Market Research & Intelligence |
+| Marketing Research & Consultancies | Operational Excellence |
+| Innovation & AI Research & Consultancies | Market Entry & Expansion |
+| Sourcing & Procurement Consultancies | Financial & Commercial Advisory |
+| Project Development Consultancies | Brand & Go-To-Market |
+
+Deliverables on each service page are now the exact sub-services the guidelines list, not
+invented ones. Old URLs under `/services/` were replaced, so any link to the previous six
+will 404 — nothing had been indexed, so no redirects were added.
+
+**Still outstanding from the guidelines:**
+
+- **Colour.** Guidelines specify three: `#518A9C` blue, `#D0423A` red, `#F5B02F` orange. The
+  site currently uses a single red (`#d13a45`, sampled from the logo file) on white and ink.
+  The stated red is also slightly different from the sampled one.
+- **Typography.** Guidelines specify Anton for headings, Posterama 2001 Light for titles and
+  Poppins for body. The site uses Sora, Inter, JetBrains Mono and Instrument Serif. Anton and
+  Poppins are free on Google Fonts; **Posterama is a licensed Monotype face and cannot be used
+  without a purchased web licence.**
+- **Brand pillars.** RESEARCH · INNOVATION · GROWTH — the three points of the triangle — are
+  not yet used as a structural device anywhere on the site.
+- **Vision and positioning copy** from the guidelines has not yet replaced the About page copy.
+
 ## Launch checklist — the five things only you can do
 
 Everything else in Phase 0 and Phase 1 of the roadmap is done. These five need your
@@ -321,9 +356,9 @@ Validate any changes at [Rich Results Test](https://search.google.com/test/rich-
    instead, create a form endpoint (Formspree, Web3Forms, Getform or your own script) and put the
    URL in `contact.html`:
    `<form class="form" data-validate data-endpoint="https://your-endpoint">`
-4. **Leadership section.** `about.html` lists Sayed Dahdah as *Managing Partner* with a short
-   descriptive bio, and uses an "SD" monogram placeholder. Confirm the job title and replace the
-   monogram with a photograph when one is available.
+4. **Leadership section.** The named leadership card was removed at his request; the section now
+   describes the senior-led model without naming anyone. His email address remains as the firm's
+   contact channel — confirm whether that should change too.
 5. **Claims to confirm.** A few statements were written as reasonable positioning for a strategic
    advisory firm and should be approved (or edited) by the client: "response within one business
    day", "available during UAE business hours", the four-phase method names, the engagement models
