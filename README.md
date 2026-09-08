@@ -520,6 +520,54 @@ logomarks lift out of register. Two or three pixels of movement — the point is
 from the brand rather than from a template. Focus states are held to the same standard as
 hover rather than left to the browser default.
 
+## Handover and access
+
+**Repository:** `mohammadmarwanbalkis-sketch/stratedge-website` — public, `main` branch,
+GitHub Pages serving from `main` at `/`.
+
+It has to stay public: Pages on a free account will not serve a private repo, so flipping
+visibility takes the live site down.
+
+**Current access.** `Stratedge123` (the client's account, created 2026-09-08) has been invited
+as a collaborator with **write** permission — enough to edit files, push, and open pull
+requests, but not to delete the repository or change its settings. Raise it to `admin` later
+if they need to manage Pages or settings themselves:
+
+```
+gh api -X PUT repos/mohammadmarwanbalkis-sketch/stratedge-website/collaborators/Stratedge123 -f permission=admin
+```
+
+The invitation has to be accepted from the Stratedge123 account before it takes effect —
+either from the emailed link or at `github.com/mohammadmarwanbalkis-sketch/stratedge-website/invitations`.
+Check whether it is still pending with:
+
+```
+gh api repos/mohammadmarwanbalkis-sketch/stratedge-website/invitations
+```
+
+**Ownership is deliberately unchanged for now.** Transferring the repo to `Stratedge123`
+would be the real handover, but it changes the Pages URL to
+`stratedge123.github.io/stratedge-website/` and the current preview link — the one the client
+is reviewing on — stops working. Since the custom domain is about to make the github.io URL
+irrelevant anyway, the transfer is better done *after* DNS moves.
+
+**When you do transfer**, the order matters. On transfer the previous owner loses admin, and
+only the new owner can grant it back:
+
+1. Confirm the custom domain is live and the client is using it, not the github.io URL.
+2. Transfer: repo Settings → General → Danger Zone → Transfer ownership, to `Stratedge123`.
+   The receiving account must accept.
+3. **Have Stratedge123 add `mohammadmarwanbalkis-sketch` straight back as a collaborator** —
+   otherwise you have no push access until they do.
+4. Re-check Settings → Pages on the new owner: confirm the source is still `main` / `/`, that
+   the custom domain is still set, and re-tick **Enforce HTTPS** once the certificate reissues.
+5. The `CNAME` file travels with the repo, but the domain has to be re-verified under the new
+   account.
+
+An organisation is the cleaner long-term home if more than two people will ever touch this —
+it owns the repo, both accounts are admins, and people can be added or removed without
+another transfer. Same Pages-URL caveat applies.
+
 ## Domain — stratedgeconsultancy.com
 
 **It is registered and it expires 2026-09-10.** Checked 2026-09-08: GoDaddy, created
