@@ -341,6 +341,39 @@ in the footer of every page.
 - **The business card on p5 is placeholder** — "John Smith, +971-58-234-2345, Dubai, Business
   bay, 1234" — but it implies a real Business Bay address the site does not have.
 
+## Domain — stratedgeconsultancy.com
+
+**It is registered and it expires 2026-09-10.** Checked 2026-09-08: GoDaddy, created
+2025-09-10, nameservers `ns47/ns48.domaincontrol.com`, currently serving a GoDaddy
+"Launching Soon" parking page. Renewing it is the most urgent item on this list — if it
+lapses the firm loses the name the whole brand is built on, and the site's canonical URLs
+all point at it.
+
+**Why it matters beyond the renewal.** Every page declares
+`<link rel="canonical" href="https://www.stratedgeconsultancy.com/...">` and the sitemap
+lists the same URLs. That domain answers HTTP 200 — with the parking page. So a crawler
+reading the GitHub Pages site is told the real version lives elsewhere, follows the pointer,
+and finds a placeholder. Until DNS moves, the live site cannot rank on its own content.
+
+**The switch, in order.** Do not reorder these — adding the CNAME file before DNS resolves
+takes the github.io preview link down without putting anything in its place.
+
+1. Renew the domain.
+2. In GoDaddy DNS, for the apex `stratedgeconsultancy.com`, four A records:
+   `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`.
+   Optionally the AAAA set too: `2606:50c0:8000::153`, `2606:50c0:8001::153`,
+   `2606:50c0:8002::153`, `2606:50c0:8003::153`.
+3. A CNAME record for `www` pointing at `mohammadmarwanbalkis-sketch.github.io`.
+4. Wait for propagation (`dig +short www.stratedgeconsultancy.com` should return the
+   github.io host, not the GoDaddy address).
+5. Add a file named `CNAME` at the repo root containing exactly
+   `www.stratedgeconsultancy.com`, and push.
+6. In the repo's Settings → Pages, confirm the custom domain and tick **Enforce HTTPS**
+   once the certificate is issued (usually within the hour).
+
+No content changes are needed at the switch — canonicals, `og:url` and the sitemap already
+name the final domain. That was deliberate; it is only wrong for as long as DNS is not moved.
+
 ## Launch checklist — the five things only you can do
 
 Everything else in Phase 0 and Phase 1 of the roadmap is done. These five need your
