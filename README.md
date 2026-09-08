@@ -361,6 +361,58 @@ in the footer of every page.
 - **The business card on p5 is placeholder** — "John Smith, +971-58-234-2345, Dubai, Business
   bay, 1234" — but it implies a real Business Bay address the site does not have.
 
+## Interaction
+
+Three additions, all native — no library, and each one degrades to what the site did
+before rather than to something broken.
+
+**Cross-document view transitions.** `@view-transition { navigation: auto }` in
+`style.css`, so navigating between pages morphs instead of blanking to white. Two named
+pairs carry continuity: the header and footer are lifted out of the root snapshot so they
+hold still while the page beneath them changes, and a service card's title becomes that
+service page's H1 — the thing you clicked is visibly the thing you arrived at.
+
+The names cannot live in the markup, because a `view-transition-name` has to be unique
+per document and there are six cards on a page. `viewTransitions()` in `main.js` instead
+decides, per navigation, which single element on each side is the counterpart: on
+`pageswap` for the outgoing page, on `pagereveal` for the incoming one. It is registered
+before `init()` because `pagereveal` can fire before `DOMContentLoaded`.
+
+The preloader now runs **once per session**. It has to: a view transition captures the
+incoming page's first frame, so a preloader on every internal navigation would mean every
+navigation morphs into a loading screen.
+
+**Speculation rules — `prefetch`, deliberately not `prerender`.** Activating a prerendered
+document skips the cross-document view transition, so the two features cancel each other
+out. Prefetch caches the HTML on hover while leaving the navigation a real navigation,
+which keeps both the speed and the transition.
+
+> **Not verifiable in the Claude Code preview pane.** Cross-document view transitions are
+> disabled there — a minimal two-page test with nothing but `@view-transition` also reports
+> `pageswap` with no `viewTransition` and never fires `pagereveal`, on Chromium 148, top
+> level, same origin, reduced-motion off. The pairing logic and the CSS rule were verified
+> in the pane; the transition itself has to be checked in a real browser.
+
+**The hairline grid** (`.ruled`). The guidelines rule every spread into quadrants — full
+bleed, straight over the photography and across the dark spreads. Two background gradients
+on a pseudo-element: no markup, nothing painted on scroll. Positions are set per section so
+the rules land on something real (the edge of a copy column, the top of an image) rather
+than at an arbitrary 25/50/75, and the verticals drop below 900px where the columns collapse
+and they would stop describing anything.
+
+One trap worth knowing: `--rule-x2:none` silently killed the entire `background-position`,
+because `none` is not a valid `<position>` and one invalid `var()` invalidates the whole
+declaration at computed-value time. Unused rules are switched off with `background-size`
+instead. The responsive audit now asserts the overlay has not collapsed to `0% 0%`.
+
+**Misregistration** (`.misreg`). Every image on the site is a colour plate printed a few
+pixels off the photographic one. That is a press artefact, so it is also the honest place to
+take the interaction language from: on hover and on keyboard focus, buttons print an offset
+plate of the accent, service card labels offset in their pillar colour, and the pillar
+logomarks lift out of register. Two or three pixels of movement — the point is that it comes
+from the brand rather than from a template. Focus states are held to the same standard as
+hover rather than left to the browser default.
+
 ## Domain — stratedgeconsultancy.com
 
 **It is registered and it expires 2026-09-10.** Checked 2026-09-08: GoDaddy, created

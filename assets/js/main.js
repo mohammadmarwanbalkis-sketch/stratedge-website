@@ -62,6 +62,17 @@
   function preloader() {
     var pl = $('.preload');
     if (!pl) { document.body.classList.remove('is-loading'); return; }
+    /* Only on the first arrival of a session. A view transition captures the
+       incoming page's first frame, so a preloader running on every internal
+       navigation would mean every navigation morphs into a loading screen. */
+    var seen = false;
+    try { seen = sessionStorage.getItem('sx.seen') === '1'; sessionStorage.setItem('sx.seen', '1'); } catch (e) {}
+    if (seen) {
+      pl.remove();
+      document.body.classList.remove('is-loading');
+      document.body.classList.add('is-ready');
+      return;
+    }
     var bar = $('.preload__bar i', pl), p = 0, done = false;
     var tick = setInterval(function () {
       p = Math.min(p + Math.random() * 16 + 6, 92);
@@ -726,6 +737,63 @@
       if (href === here || (here === '' && href === 'index.html')) a.setAttribute('aria-current', 'page');
     });
   }
+
+  /* ---------------------------------------------------------------
+     VIEW TRANSITIONS
+     Cross-document transitions are declared in CSS; all this does is decide,
+     per navigation, WHICH element on each side is the same thing — the service
+     card you clicked and the heading you land on — so the pair morphs instead
+     of cross-fading. Names have to be unique per document, so they are applied
+     for the one navigation and cleared again rather than sitting in the markup.
+     --------------------------------------------------------------- */
+  var VT_NAME = 'svc-title';
+
+  function vtPath(u) {
+    try { return new URL(u, location.href).pathname.replace(/index\.html$/, ''); }
+    catch (e) { return ''; }
+  }
+  function vtClear() {
+    $$('[data-vt]').forEach(function (el) {
+      el.style.viewTransitionName = '';
+      el.removeAttribute('data-vt');
+    });
+  }
+  function vtMark(el) {
+    if (!el) return;
+    el.style.viewTransitionName = VT_NAME;
+    el.setAttribute('data-vt', '');
+  }
+  /* `other` is the far side of the navigation — where we are going, or where we
+     came from. On a service page the counterpart is its own H1; on a hub it is
+     the card pointing at that service. */
+  function vtCounterpart(other) {
+    var here = vtPath(location.href), there = vtPath(other);
+    if (!there || there === here) return null;
+    if (/\/services\/[^/]+\/$/.test(here)) return $('.hero3 h1');
+    if (!/\/services\/[^/]+\/$/.test(there)) return null;
+    var hit = null;
+    $$('a.bs').forEach(function (a) {
+      if (vtPath(a.getAttribute('href')) === there) hit = a;
+    });
+    return hit && $('h3', hit);
+  }
+
+  function viewTransitions() {
+    if (!('startViewTransition' in document)) return;
+    window.addEventListener('pageswap', function (e) {
+      if (!e.viewTransition || !e.activation || !e.activation.entry) return;
+      vtClear();
+      vtMark(vtCounterpart(e.activation.entry.url));
+    });
+    window.addEventListener('pagereveal', function (e) {
+      if (!e.viewTransition) return;
+      vtClear();
+      var nav = window.navigation, from = nav && nav.activation && nav.activation.from;
+      vtMark(vtCounterpart(from && from.url));
+    });
+  }
+  /* registered immediately: pagereveal can fire before DOMContentLoaded */
+  viewTransitions();
 
   function init() {
     analytics();
