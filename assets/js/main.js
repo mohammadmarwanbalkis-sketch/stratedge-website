@@ -134,10 +134,35 @@
     el.textContent = '';
     el.appendChild(frag);
 
-    $$('.wd', el).forEach(function (w, i) {
-      w.style.setProperty('--wd', (i * 0.042).toFixed(3) + 's');
-    });
+    lineStagger(el);
     el.dataset.split = 'done';
+  }
+
+  /*
+    Stagger by LINE, not by word.
+
+    Word-by-word is the tell of a template — it reads as an effect applied to
+    text rather than as typesetting. Grouping the words by the line they
+    actually landed on and giving a whole line one delay makes each line wipe up
+    as a unit, which is the quieter, more editorial version of the same idea.
+    Every word is still clipped by its own .wm, so the masks stay tight to the
+    letterforms instead of leaving a slab-shaped gap.
+
+    Line membership depends on where the text wrapped, so it is recomputed when
+    the width changes — and only when the width changes, since a mobile URL bar
+    collapsing changes the height on every scroll.
+  */
+  function lineStagger(el) {
+    var words = $$('.wd', el), line = -1, top = null;
+    words.forEach(function (w) {
+      var t = Math.round(w.offsetTop / 4);   /* tolerate sub-pixel drift */
+      if (t !== top) { top = t; line++; }
+      w.style.setProperty('--wd', (line * 0.085).toFixed(3) + 's');
+    });
+  }
+
+  function restagger() {
+    $$('[data-split="done"]').forEach(lineStagger);
   }
 
 
@@ -796,6 +821,12 @@
   viewTransitions();
 
   function init() {
+    var lastW = window.innerWidth;
+    onResize(function () {
+      if (window.innerWidth === lastW) return;   /* height-only change: ignore */
+      lastW = window.innerWidth;
+      restagger();
+    });
     analytics();
     chrome(); preloader(); navigation(); reveals(); cursor(); cards();
     counters(); scrollFX(); explorer(); rail(); heroCanvas();

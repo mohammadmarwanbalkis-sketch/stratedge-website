@@ -148,4 +148,27 @@ for i, (name, frm, crop, size, col, tri, ol) in enumerate(SWAPS):
               seed=57 + i * 6)
     out(im, name + ".webp", q=82 if card else (80 if name.endswith("-sm") else 76))
 
+# --------------------------------------------------------------------------
+# The four principles on the About page. They were the only cards on the site
+# with no plate behind them, so hovering one turned it into a flat black box.
+#
+# Rather than four unrelated photographs, these are four consecutive slices of
+# one panorama — the row reads as a single cityscape cut into four, which is
+# what the deck does with its divided spreads. band-dawn is used because
+# about.html already carries band-dusk in its photo band.
+# --------------------------------------------------------------------------
+PRINCIPLES = [
+    ("integrity",      (0.00, 0.00, 0.28, 1.00), BLUE),
+    ("rigour",         (0.24, 0.00, 0.52, 1.00), ORANGE),
+    ("discretion",     (0.48, 0.00, 0.76, 1.00), RED),
+    ("accountability", (0.72, 0.00, 1.00, 1.00), BLUE),
+]
+print("principle cards")
+for i, (slug, crop, col) in enumerate(PRINCIPLES):
+    src = source("prin-%s.webp" % slug, frm="band-dawn.webp")
+    tri = (0.40 + 0.10 * (i % 3), 0.62, 0.88 + 0.06 * (i % 2), 1.05, 0.0)
+    out(riso(src, (720, 560), INK, col, tri=tri, tri_alpha=0.60,
+             photo_strength=0.78, curve=(0.18, 0.90, 0.95), seed=71 + i * 5),
+        "prin-%s.webp" % slug, q=82)
+
 print("done")

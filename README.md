@@ -329,6 +329,14 @@ that way from the site's own Dubai photography, so a stock-photo grid becomes on
 - Grain is blurred to 0.9px. Sharper than that roughly doubles every file — WebP cannot
   encode high-frequency noise — and it is not worth it on a `fetchpriority="high"` hero.
 
+**The four About principles** were the only cards on the site with no plate behind them, so
+hovering one turned it into a flat black box. They are now four *consecutive slices of one
+panorama* — the row reads as a single cityscape cut into four, which is what the deck does
+with its divided spreads. They carry colour-only modifiers (`.bs--blue`, `.bs--orange`,
+`.bs--red`) rather than pillar classes, because Integrity and Rigour are not research or
+innovation and saying they were would empty the pillar names of meaning. The responsive audit
+now fails on any `.bs` without a plate, so this cannot come back.
+
 **Landmark substitutions.** Four plates were isolated portraits — two of the Burj Khalifa
 (innovation & AI) and two of the Burj Al Arab (sourcing & procurement), the building filling
 the frame as the subject. Emaar and Jumeirah both assert commercial-image rights over their
@@ -404,6 +412,29 @@ One trap worth knowing: `--rule-x2:none` silently killed the entire `background-
 because `none` is not a valid `<position>` and one invalid `var()` invalidates the whole
 declaration at computed-value time. Unused rules are switched off with `background-size`
 instead. The responsive audit now asserts the overlay has not collapsed to `0% 0%`.
+
+**Scroll-linked motion.** Everything else animates once and stops, which is the tell of a
+template. Three elements respond continuously to scroll position instead: the big triangle
+watermark drifts and grows a few percent across its section, the hero plate shifts against
+its frame like a misregistered print, and the hairline grid fades up as a section arrives.
+Native `animation-timeline: view()` — no JS, no scroll listener, nothing on the main thread —
+inside `@supports` and `prefers-reduced-motion: no-preference`. Where unsupported the
+elements sit still, which is how the site behaved before. Deliberately three, not thirty.
+
+**Line-staggered headings.** `splitText()` still wraps each word in its own mask, but the
+delay is now assigned per *line* rather than per word: the words are grouped by the line they
+actually landed on and a whole line shares one delay, so each line wipes up as a unit. Word-
+by-word reads as an effect applied to text; this reads as typesetting. Line membership
+depends on where the text wrapped, so it is recomputed on resize — and only on *width*
+change, since a mobile URL bar collapsing changes the height on every scroll.
+
+**Print** (`@media print`). Consultancy pages get printed and PDF'd before meetings, and this
+site is built out of things that do not survive a printer: colour plates on dark grounds,
+hairline overlays, a masked glyph standing in for a letter, a fixed header. In print the dark
+spreads invert rather than flooding the page with toner, cards become a plain ruled list, the
+triangular A gives way to the real letter it was hiding, reveals are forced to their end
+state, and external links print their destination. The hidden-element list was checked
+against the markup rather than guessed.
 
 **Misregistration** (`.misreg`). Every image on the site is a colour plate printed a few
 pixels off the photographic one. That is a press artefact, so it is also the honest place to

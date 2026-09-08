@@ -345,7 +345,9 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 .split .wm{display:inline-block;overflow:hidden;vertical-align:bottom;
   padding-bottom:.1em;margin-bottom:-.1em}
 .split .wm .wd{display:inline-block;transform:translateY(115%);
-  transition:transform 1s var(--e-out) var(--wd,0s)}
+  /* a touch slower than the old per-word reveal: fewer, larger movements want
+     more time than many small ones */
+  transition:transform 1.05s var(--e-out) var(--wd,0s)}
 .split.is-in .wm .wd{transform:translateY(0)}
 
 .wordfade .wd{display:inline-block;color:var(--text);opacity:.15;transition:opacity .45s ease}
@@ -1362,6 +1364,12 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 .bs--research{--pillar:var(--blue);--pillar-ink:var(--blue-ink)}
 .bs--innovation{--pillar:var(--orange);--pillar-ink:var(--orange-ink)}
 .bs--growth{--pillar:var(--red);--pillar-ink:var(--red-ink)}
+/* Colour-only modifiers, for cards that carry a brand colour without carrying a
+   pillar — the About principles are not research/innovation/growth, and saying
+   they were would empty the pillar names of meaning. */
+.bs--blue{--pillar:var(--blue);--pillar-ink:var(--blue-ink)}
+.bs--orange{--pillar:var(--orange);--pillar-ink:var(--orange-ink)}
+.bs--red{--pillar:var(--red);--pillar-ink:var(--red-ink)}
 .bs__n{color:var(--pillar-ink)}
 .bs::after{content:"";position:absolute;left:0;top:0;height:3px;width:100%;
   background:var(--pillar);transform:scaleX(0);transform-origin:left;
@@ -1632,4 +1640,97 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*){animation:none!important}
+}
+
+/* =========================================================================
+   SCROLL-LINKED MOTION
+   Everything else on the site animates once and stops, which is the tell of a
+   template. These few elements respond continuously to scroll position
+   instead — the press separating as the page moves.
+
+   Native scroll-driven animations: no JS, no scroll listener, no work on the
+   main thread. Where they are unsupported the elements simply sit still, which
+   is exactly how the site behaved before, so there is nothing to detect.
+   Deliberately three elements, not thirty.
+   ========================================================================= */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion:no-preference) {
+
+    /* the big quiet triangle drifts and grows a few percent across its section */
+    .pillars3__wm{
+      animation:wm-drift linear both;
+      animation-timeline:view();
+      animation-range:entry 0% exit 100%;
+    }
+    @keyframes wm-drift{
+      from{transform:translate3d(0,4%,0) scale(.94);opacity:.03}
+      to  {transform:translate3d(0,-6%,0) scale(1.06);opacity:.075}
+    }
+
+    /* the hero plate and its frame separate slightly, like a misregistered print */
+    .hero3__clip img{
+      animation:plate-shift linear both;
+      animation-timeline:view();
+      animation-range:entry 40% exit 100%;
+      will-change:transform;
+    }
+    @keyframes plate-shift{
+      from{transform:scale(1.06) translate3d(0,-1.4%,0)}
+      to  {transform:scale(1.06) translate3d(0,1.4%,0)}
+    }
+
+    /* the hairline grid fades up as a section arrives rather than being flatly on */
+    .ruled::after{
+      animation:rule-in linear both;
+      animation-timeline:view();
+      animation-range:entry 10% entry 90%;
+    }
+    @keyframes rule-in{from{opacity:0}to{opacity:1}}
+  }
+}
+
+/* =========================================================================
+   PRINT
+   Consultancy pages get printed and PDF'd before meetings, and the site is
+   built out of things that do not survive a printer: colour plates on dark
+   grounds, hairline overlays, masked glyphs, a fixed header. This is the
+   version that goes in the folder.
+   ========================================================================= */
+@media print{
+  @page{margin:16mm 14mm}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{background:#fff!important;color:#111!important;font-size:10.5pt}
+
+  /* chrome, motion and decoration have no meaning on paper */
+  /* checked against the markup rather than guessed — .wa is the floating
+     WhatsApp button, .crumbs and .offer carry nothing on paper */
+  .nav,.menu,.mbar,.cursor,.preload,.glow,.ruled::after,.pillars3__wm,
+  .close__tri,.hero3__mark,.wa,.btn-row,.acc__q svg{display:none!important}
+  [data-reveal],.split .wm .wd,.reveal{opacity:1!important;transform:none!important;
+    clip-path:none!important;animation:none!important;transition:none!important}
+
+  /* the dark spreads invert rather than flooding the page with toner */
+  .slab,.close,.bs--photo,.footer{background:#fff!important;color:#111!important}
+  .slab *,.close *,.bs--photo *,.footer *{color:#111!important}
+  .slab__bg,.close__bg,.bs::before{display:none!important}
+  .slab,.close{border-top:1px solid #bbb;border-bottom:1px solid #bbb}
+
+  /* the triangular A has no mask on paper, so the real letter comes back */
+  .triA{width:auto;height:auto;overflow:visible;color:inherit;line-height:inherit}
+  .triA::before{display:none}
+
+  /* cards become a plain ruled list */
+  .big-svc{display:block;border:0}
+  .bs{min-height:0;padding:.55rem 0;border-bottom:1px solid #ddd;break-inside:avoid}
+  .bs h3{color:#111!important;font-size:12pt}
+  .bs__pillar{position:static;color:#555!important;opacity:1}
+
+  section{break-inside:avoid-page;padding-block:10mm!important}
+  h1,h2,h3{break-after:avoid-page;color:#111!important}
+  img{max-width:100%!important;filter:grayscale(1) contrast(1.1)}
+
+  /* a printed link is useless without its destination */
+  main a[href^="http"]::after{content:" (" attr(href) ")";font-size:8.5pt;color:#555}
+  main a[href^="mailto:"]::after{content:" (" attr(href) ")";font-size:8.5pt;color:#555}
+  main a[href^="/"]::after,main a[href^="."]::after{content:""}
 }
