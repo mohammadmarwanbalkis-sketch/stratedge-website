@@ -300,6 +300,27 @@ quiet triangle. What changed:
 | The A | Ordinary letter | `.triA` — the logomark triangle, on pillar names and headings that open on an A |
 | Pillars | One tricolour triangle | Three coloured logomarks, as p6 shows them |
 
+**Imagery — reprinted, not replaced.** The deck's images are not photographs. They are a
+paper ground, a gritty high-contrast photographic plate, flat brand-colour geometry printed
+slightly out of register, and visible grain. `tools/build_imagery.py` rebuilds the whole set
+that way from the site's own Dubai photography, so a stock-photo grid becomes one press run:
+
+- **Page and service heroes** print on the deck's bone (`#cecabe`) — the inset plate p3 uses.
+- **Service cards** print on the charcoal, since they sit inside dark-filling cards, with the
+  flat shape in the card's own pillar colour.
+- **Full-bleed bands** carry white copy, so the shape sits far right at low strength rather
+  than under the text.
+- Composition varies across the set — scale, placement, and whether the mark is printed solid
+  or as the **logomark's rounded outline** (contact, management consultancy, project
+  development) — so ten plates read as a run rather than one template used ten times.
+- Every plate is normalised with `autocontrast` before the curve, because night shots and
+  daylight shots otherwise print at wildly different densities.
+- Grain is blurred to 0.9px. Sharper than that roughly doubles every file — WebP cannot
+  encode high-frequency noise — and it is not worth it on a `fetchpriority="high"` hero.
+
+Re-run with `python3 tools/build_imagery.py`. It always works from the untouched originals in
+`assets/img/.photo-originals/`, so the treatment never compounds on itself.
+
 **Copy folded in from the deck** (it had been paraphrased or missing): the cover strapline,
 the 360°/"from setup to growth" positioning claim, the "we don't just consult — we partner"
 line, the full core-value statement, the triangle rationale (now the pillars section's own
@@ -308,12 +329,6 @@ in the footer of every page.
 
 **Still outstanding — needs the client:**
 
-- **Imagery.** The deck's art direction is textured, risograph-style *illustration* with
-  triangle geometry in the brand colours on a `#cecabe` bone ground — a handshake split by a
-  triangle, hands assembling a jigsaw, a crowd walking toward a triangle. The site uses real
-  Dubai skyline photography duotoned in ink. This is the largest remaining gap and the one
-  that needs a budget decision, because matching it means commissioning or generating a new
-  image set rather than recolouring the existing one.
 - **The pillar colour mapping is ambiguous in the source.** Read positionally, p6 gives
   orange=Research, blue=Innovation, red=Growth. Read by the stated meanings on p7 — blue is
   trust/expertise, orange is creativity, red is energy — you get blue=Research,

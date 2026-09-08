@@ -1103,7 +1103,7 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 .bs__go svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;
   transition:transform .4s var(--e-out)}
 .bs::before{content:"";position:absolute;inset:0;background-color:var(--ink);
-  background-image:linear-gradient(rgba(9,11,14,.58),rgba(9,11,14,.82)),var(--img,none);
+  background-image:linear-gradient(rgba(28,29,29,.18),rgba(28,29,29,.66)),var(--img,none);
   background-size:cover;background-position:center;
   clip-path:polygon(100% 0,100% 0,100% 100%,100% 100%);
   transition:clip-path .55s var(--e-out);z-index:0}
@@ -1172,7 +1172,7 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   .hero3__mark{width:62px;height:62px}
   .hero3__mark span{display:none}
   .slab__pts{grid-template-columns:1fr;gap:1.4rem}
-  .slab__bg::after{background:linear-gradient(180deg,rgba(10,12,15,.88),rgba(10,12,15,.72))}
+  .slab__bg::after{background:linear-gradient(180deg,rgba(30,31,31,.86),rgba(30,31,31,.70))}
 }
 @media (max-width:620px){
   .big-svc,.steps4{grid-template-columns:1fr}
