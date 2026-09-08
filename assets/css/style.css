@@ -1533,11 +1533,13 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 .bs:focus-visible .bs__pillar{
   text-shadow:calc(var(--misreg) * -1) 2px 0 var(--pillar)}
 
-/* The pillar logomarks lift out of register when their column is pointed at. */
-.pil__mark{transition:filter .3s var(--e-out),transform .45s var(--e-out)}
-.pil:hover .pil__mark{
-  transform:translate(2px,-1px);
-  filter:drop-shadow(-4px 3px 0 var(--pillar-ink))}
+/* The pillar logomarks lift out of register when their column is pointed at.
+   Only the filter moves: transform belongs to the scroll-linked mark-rise
+   animation further down, and an animation with fill:both outranks a hover
+   transition, so setting transform here would silently do nothing once the
+   mark had scrolled into place. */
+.pil__mark{transition:filter .3s var(--e-out)}
+.pil:hover .pil__mark{filter:drop-shadow(-4px 3px 0 var(--pillar-ink))}
 
 /* Focus is held to the same standard as hover rather than left to the browser:
    an offset plate plus a ring that survives on both paper and ink. */
@@ -1550,7 +1552,6 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 
 @media (prefers-reduced-motion:reduce){
   .btn,.bs__pillar,.pil__mark{transition:none}
-  .pil:hover .pil__mark{transform:none}
 }
 
 /* =========================================================================
@@ -1656,30 +1657,59 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion:no-preference) {
 
-    /* the big quiet triangle drifts and grows a few percent across its section */
+    /* The big quiet triangle drifts and grows across its section. The first
+       pass ran .03 -> .075 opacity over 10% of travel, which measured as a real
+       animation and read as nothing at all — below the threshold where anyone
+       would notice it moved. Restraint has to stay above perceptibility or it
+       is just cost with no effect. */
     .pillars3__wm{
       animation:wm-drift linear both;
       animation-timeline:view();
       animation-range:entry 0% exit 100%;
     }
     @keyframes wm-drift{
-      from{transform:translate3d(0,4%,0) scale(.94);opacity:.03}
-      to  {transform:translate3d(0,-6%,0) scale(1.06);opacity:.075}
+      from{transform:translate3d(4%,10%,0) scale(.86) rotate(-4deg);opacity:.05}
+      to  {transform:translate3d(-4%,-10%,0) scale(1.14) rotate(4deg);opacity:.14}
     }
 
-    /* the hero plate and its frame separate slightly, like a misregistered print */
+    /* the hero plate and its frame separate, like a misregistered print.
+       scale(1.12) leaves 6% of bleed each way, so a 3% shift never exposes an edge */
     .hero3__clip img{
       animation:plate-shift linear both;
       animation-timeline:view();
-      animation-range:entry 40% exit 100%;
+      animation-range:entry 30% exit 100%;
       will-change:transform;
     }
     @keyframes plate-shift{
-      from{transform:scale(1.06) translate3d(0,-1.4%,0)}
-      to  {transform:scale(1.06) translate3d(0,1.4%,0)}
+      from{transform:scale(1.12) translate3d(0,-3%,0)}
+      to  {transform:scale(1.12) translate3d(0,3%,0)}
     }
 
-    /* the hairline grid fades up as a section arrives rather than being flatly on */
+    /* the three pillar logomarks rise as their row arrives, one after another */
+    .pil__mark{
+      animation:mark-rise linear both;
+      animation-timeline:view();
+      animation-range:entry 15% entry 95%;
+    }
+    .pil:nth-child(2) .pil__mark{animation-range:entry 22% entry 100%}
+    .pil:nth-child(3) .pil__mark{animation-range:entry 29% cover 8%}
+    @keyframes mark-rise{
+      from{transform:translateY(18px) scale(.78);opacity:0}
+      to  {transform:none;opacity:1}
+    }
+
+    /* the closing triangle turns slowly as the CTA comes up */
+    .close__tri{
+      animation:tri-turn linear both;
+      animation-timeline:view();
+      animation-range:entry 0% exit 100%;
+    }
+    @keyframes tri-turn{
+      from{transform:rotate(-7deg) scale(.9) translateY(6%)}
+      to  {transform:rotate(5deg) scale(1.08) translateY(-6%)}
+    }
+
+    /* the hairline grid draws in as a section arrives rather than being flatly on */
     .ruled::after{
       animation:rule-in linear both;
       animation-timeline:view();

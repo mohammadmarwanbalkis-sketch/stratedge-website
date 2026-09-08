@@ -414,12 +414,24 @@ declaration at computed-value time. Unused rules are switched off with `backgrou
 instead. The responsive audit now asserts the overlay has not collapsed to `0% 0%`.
 
 **Scroll-linked motion.** Everything else animates once and stops, which is the tell of a
-template. Three elements respond continuously to scroll position instead: the big triangle
-watermark drifts and grows a few percent across its section, the hero plate shifts against
-its frame like a misregistered print, and the hairline grid fades up as a section arrives.
-Native `animation-timeline: view()` — no JS, no scroll listener, nothing on the main thread —
-inside `@supports` and `prefers-reduced-motion: no-preference`. Where unsupported the
-elements sit still, which is how the site behaved before. Deliberately three, not thirty.
+template. Five elements respond continuously to scroll position instead: the big triangle
+watermark drifts, grows and turns across its section; the hero plate shifts against its
+frame like a misregistered print; the three pillar logomarks rise one after another as their
+row arrives; the closing triangle turns as the CTA comes up; and the hairline grid draws in
+as a section arrives. Native `animation-timeline: view()` — no JS, no scroll listener,
+nothing on the main thread — inside `@supports` and `prefers-reduced-motion: no-preference`.
+Where unsupported the elements sit still, which is how the site behaved before.
+
+The first pass at this ran the watermark from `.03` to `.075` opacity over 10% of travel. It
+measured as a real animation and read as nothing at all — below the threshold where anyone
+would notice it had moved. **Restraint has to stay above perceptibility, or it is cost with
+no effect.** The ranges are roughly 3× that now and the movement is visible without being
+busy. Still five elements, deliberately, not thirty.
+
+One cascade trap worth recording: `.pil__mark` was carrying both a hover `transform` and this
+scroll animation. An animation with `fill: both` outranks a hover transition, so the hover
+offset silently stopped working the moment the mark scrolled into place. The hover
+misregistration on that element is a `filter` only now.
 
 **Line-staggered headings.** `splitText()` still wraps each word in its own mask, but the
 delay is now assigned per *line* rather than per word: the words are grouped by the line they
