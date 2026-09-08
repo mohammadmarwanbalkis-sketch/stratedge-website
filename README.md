@@ -369,6 +369,37 @@ in the footer of every page.
 - **The business card on p5 is placeholder** — "John Smith, +971-58-234-2345, Dubai, Business
   bay, 1234" — but it implies a real Business Bay address the site does not have.
 
+## Mobile
+
+The phone had been inheriting a stripped version of the design rather than a version made
+for it. Three things it was missing, and one it was failing:
+
+- **The hairline grid was switched off entirely below 620px.** It is back, adapted: where the
+  columns have collapsed a quarter-point vertical describes nothing, so there is one rule on
+  the text's own left edge instead. It reads as a margin rule, which is what the deck's
+  verticals do on its narrower spreads.
+- **The closing wordmark was hidden below 620px.** Back at the foot of the footer, full
+  width, as the watermark it is on desktop.
+- **There was no press feedback at all** — the misregistration language lives entirely on
+  `:hover`, which does not exist on a touch screen. Buttons now print their offset plate on
+  `:active` instead, cards settle very slightly, and the offer strip and action bar respond.
+- **The offer strip** joins the pillar colour system, its numerals cycling blue / red /
+  orange like the rest of the site.
+
+**Touch targets.** Measured at 390px, nearly every text link was between 15px and 40px tall
+— the footer lists at 23px, breadcrumbs at 15px, the header logo at 36px. WCAG 2.5.8 (AA)
+asks for 24x24 CSS px; the familiar 44x44 is 2.5.5, which is AAA. Everything now clears AA
+with room, and anything with space to grow — the logo, the menu, the social buttons, the 404
+index — goes to 44. Text links grow by padding *and* their list gaps grow with them: padding
+alone would have made adjacent hit areas overlap, trading a target that is hard to hit for
+one that is easy to hit by mistake.
+
+These rules are keyed to **width, not to `hover: none`**. A narrow layout is a narrow layout
+whatever is pointing at it, generous targets cost a mouse user nothing — and `hover: none` is
+invisible to any harness that measures inside an iframe, which is exactly how the first
+attempt at this passed review while doing nothing. The audit now asserts the 24px floor at
+375px on every page.
+
 ## Contrast
 
 The palette section above gives the token-level ratios, but those were never the real

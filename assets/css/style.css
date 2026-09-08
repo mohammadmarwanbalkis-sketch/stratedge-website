@@ -1781,3 +1781,98 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   main a[href^="mailto:"]::after{content:" (" attr(href) ")";font-size:8.5pt;color:#555}
   main a[href^="/"]::after,main a[href^="."]::after{content:""}
 }
+
+/* =========================================================================
+   MOBILE
+   The phone was inheriting a stripped version of the design rather than a
+   version designed for it: the hairline grid switched off entirely, the closing
+   wordmark hidden, and no press feedback at all on a surface where hover — the
+   one thing carrying the misregistration language — does not exist.
+   ========================================================================= */
+
+/* --- the grid survives, as a margin rule --------------------------------- */
+@media (max-width:900px){
+  /* the columns have collapsed, so a quarter-point vertical describes nothing.
+     One rule on the text's own left edge does: it reads as a margin, which is
+     what the deck's verticals do on its narrower spreads. */
+  .ruled::after{
+    background-size:1px 100%,0 0,100% 1px;
+    background-position:var(--gutter) 0,0 0,0 var(--rule-y,68%);
+  }
+}
+@media (max-width:620px){
+  .ruled::after{display:block}          /* was display:none — the phone got none of it */
+  .hero3.ruled::after{--rule-y:86%}
+  .pillars3.ruled::after{--rule-y:26%}
+  .slab.ruled::after{--rule-y:52%}
+  .close.ruled::after{--rule-y:70%}
+}
+
+@media (max-width:620px){
+  /* --- the closing wordmark comes back, sized for the width -------------- */
+  .footer__word{display:block;opacity:.06;margin-top:1.4rem}
+
+  /* --- the offer strip joins the pillar colour system -------------------- */
+  .offer__row>*:nth-child(3n+1) i{color:var(--blue-ink)}
+  .offer__row>*:nth-child(3n+2) i{color:var(--red-ink)}
+  .offer__row>*:nth-child(3n+3) i{color:var(--orange-ink)}
+}
+
+/* --- press feedback, since there is no hover to carry it ------------------ */
+@media (hover:none){
+  .btn,.bs,.mbar a,.offer a,.acc__q{-webkit-tap-highlight-color:transparent}
+
+  /* the same misregistration the desktop gets on hover, on the press instead */
+  .btn:active{
+    box-shadow:2px -1px 0 0 var(--accent),0 6px 16px -12px rgba(81,138,156,.45);
+    transform:translateY(1px)}
+  .bs:active{transform:scale(.992)}
+  .bs:active .bs__pillar{text-shadow:-2px 1px 0 var(--pillar)}
+  .mbar a:active{background:var(--accent-tint)}
+  .offer a:active{background:var(--paper-2);padding-left:.6rem}
+  .btn,.bs,.mbar a{transition:transform .18s var(--e-out),box-shadow .18s var(--e-out),
+    background .2s,color .3s}
+}
+@media (hover:none) and (prefers-reduced-motion:reduce){
+  .btn:active,.bs:active{transform:none}
+}
+
+/* =========================================================================
+   TOUCH TARGETS
+   Measured on a 390px viewport, nearly every text link came in between 15px
+   and 40px tall. WCAG 2.5.8 (AA) asks for 24x24 CSS px; the familiar 44x44
+   figure is 2.5.5, which is AAA and Apple's guidance. So: everything clears AA
+   with margin, and anything with room to grow — the logo, the menu, the social
+   buttons, the 404 index — goes to 44.
+
+   Text links grow by padding, and the list gaps grow with them. Padding alone
+   would have made adjacent hit areas overlap, which trades a target that is
+   hard to hit for one that is easy to hit by mistake.
+   ========================================================================= */
+/* Keyed to width, not to `hover:none`. A narrow layout is a narrow layout
+   whatever is pointing at it, and generous targets cost a mouse user nothing —
+   whereas hover:none is invisible to any harness that measures in an iframe,
+   which is how this went unverified the first time. */
+@media (max-width:760px){
+  .nav__logo{min-height:44px}
+
+  .footer__links{gap:.15rem}
+  .footer__links a{padding-block:.42rem;display:block;width:auto}
+  .footer__links a::after{bottom:.36rem}
+
+  .socials{gap:.6rem}
+  .socials a{width:44px;height:44px}
+
+  .menu__item a{padding-block:.25rem}
+  .menu__foot{gap:.3rem 2.2rem}
+  .menu__foot a{padding-block:.5rem;display:inline-block}
+
+  .crumbs{line-height:2.1}
+  .crumbs a{padding-block:.4rem;display:inline-block}
+
+  .mini-index a{min-height:48px}
+
+  /* stray inline tel/mailto links outside any list */
+  .say a[href^="tel:"],.say a[href^="mailto:"],
+  p a[href^="tel:"],p a[href^="mailto:"]{padding-block:.35rem;display:inline-block}
+}
