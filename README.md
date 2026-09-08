@@ -369,6 +369,39 @@ in the footer of every page.
 - **The business card on p5 is placeholder** — "John Smith, +971-58-234-2345, Dubai, Business
   bay, 1234" — but it implies a real Business Bay address the site does not have.
 
+## Contrast
+
+The palette section above gives the token-level ratios, but those were never the real
+question: on this site text sits on a *photograph*, under a gradient scrim. What matters is
+the composite at the height where each piece of type actually lands.
+`tools/check_contrast.py` measures exactly that — it samples each generated plate, applies
+the scrim's alpha at that height, and reports the ratio per slot. Run it with
+`python3 tools/check_contrast.py`; it exits non-zero on any failure.
+
+Measuring it turned up four real defects that the token check could not have caught:
+
+- **Four of ten card titles sat at 2.60–2.71:1** against their own plate.
+- **The corner label was at 2.6:1 on the resting white card** — it carried `opacity: .62`,
+  which looked like a nice de-emphasis and quietly halved the contrast of 0.58rem text.
+- **The label and the number both sit high on the card**, where the scrim is lightest, so even
+  a lifted brand colour only reached 2–3:1 up there.
+- **The brand red tops out at 4.52:1 against pure black.** No amount of darkening the scrim
+  could ever carry it, which is what made the fix structural rather than a tweak.
+
+What came out of it:
+
+- **On-dark tints** — `--blue-lift #709fae`, `--red-lift #df7d77` — the mirror of the
+  `--*-ink` variants that already existed for text on white. Orange needed none; it clears
+  6.9:1 unaided. The pure brand values stay on graphics, where contrast is not the question.
+- **A four-stop scrim** that stays light where the plate should read and gets heavy from 42%
+  down, where all the copy lives.
+- **The two micro-labels go white on the plate.** The colour is already carried by the title
+  and the top bar; up in that band legibility wins.
+- **The card title's floor rose to 1.19rem** so it always qualifies as large text and 3:1 is
+  genuinely the right bar at every width. The responsive audit asserts this.
+
+Lowest ratio anywhere on a filled card is now 4.19:1 against a 3.0 requirement.
+
 ## Interaction
 
 Three additions, all native — no library, and each one degrades to what the site did

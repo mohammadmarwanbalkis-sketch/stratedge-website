@@ -60,6 +60,15 @@ html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
   --orange-ink:#8a6208;
   --red-ink:#b8372f;
 
+  /* And the mirror of those, for text ON the dark plates. The pure brand red
+     tops out at 4.52:1 even against pure black, so no amount of darkening the
+     scrim can carry it — the colour itself has to lift. Measured against the
+     lightest plate in the set: blue 4.51:1, red 4.56:1. Orange already clears
+     6.9:1 and is left alone. */
+  --blue-lift:#709fae;
+  --red-lift:#df7d77;
+  --orange-lift:var(--orange);
+
   --line:rgba(36,37,37,.13);
   --line-2:rgba(36,37,37,.075);
   --line-3:rgba(36,37,37,.04);
@@ -1096,7 +1105,7 @@ body.menu-open .menu__foot{opacity:1;transform:none}
    deck's most recognisable text treatment, so the cards use it too. */
 .bs h3{font-family:var(--f-body);font-weight:600;letter-spacing:-.008em;text-transform:none;
   color:var(--pillar-ink);
-  font-size:clamp(1.12rem,1.55vw,1.34rem);line-height:1.24;margin-top:1.6rem;
+  font-size:clamp(1.19rem,1.55vw,1.34rem);line-height:1.24;margin-top:1.6rem;
   position:relative;z-index:1;transition:color .35s}
 .bs p{font-size:.92rem;margin-top:.65rem;position:relative;z-index:1;transition:color .35s}
 .bs__go{margin-top:1.2rem;position:relative;z-index:1;display:inline-flex;align-items:center;
@@ -1105,12 +1114,12 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 .bs__go svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;
   transition:transform .4s var(--e-out)}
 .bs::before{content:"";position:absolute;inset:0;background-color:var(--ink);
-  background-image:linear-gradient(rgba(28,29,29,.18),rgba(28,29,29,.66)),var(--img,none);
+  background-image:linear-gradient(rgba(24,25,25,.12) 0%,rgba(24,25,25,.38) 42%,rgba(24,25,25,.74) 72%,rgba(24,25,25,.80) 100%),var(--img,none);
   background-size:cover;background-position:center;
   clip-path:polygon(100% 0,100% 0,100% 100%,100% 100%);
   transition:clip-path .55s var(--e-out);z-index:0}
 .bs:hover::before{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
-.bs:hover h3{color:var(--pillar)}
+.bs:hover h3{color:var(--pillar-lift)}
 .bs:hover p{color:rgba(255,255,255,.68)}
 .bs:hover .bs__go{color:var(--accent)}
 .bs:hover .bs__go svg{transform:translate(3px,-3px)}
@@ -1223,10 +1232,10 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   /* Every card that has a photograph shows it, because a touch device
      never triggers the hover. Filling only some of them read as a bug. */
   .bs--photo::before{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
-  .bs--photo h3{color:var(--pillar)}
+  .bs--photo h3{color:var(--pillar-lift)}
   .bs--photo p{color:rgba(255,255,255,.72)}
-  .bs--photo .bs__go{color:var(--pillar)}
-  .bs--photo .bs__n{color:var(--pillar)}
+  .bs--photo .bs__go{color:var(--pillar-lift)}
+  .bs--photo .bs__n{color:#fff}
 
   /* --- phase numerals carry the section on a narrow screen --- */
   .st{padding:1.3rem 1.25rem 1.5rem}
@@ -1258,10 +1267,13 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   .bs--photo::before{transition:none;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
   /* pp.9-10: the service name stays in its own colour on the charcoal, it does
      not go white */
-  .bs--photo h3{color:var(--pillar)}
+  .bs--photo h3{color:var(--pillar-lift)}
   .bs--photo p{color:rgba(255,255,255,.68)}
-  .bs--photo .bs__n,.bs--photo .bs__pillar,.bs--photo .bs__go{color:var(--pillar)}
-  .bs--photo .bs__pillar{opacity:1}
+  /* both micro-labels sit in the top band, where the scrim is lightest and even
+     the lifted colour only reaches 2-3:1. On the plate the colour is carried by
+     the title and the top bar; up here legibility wins. */
+  .bs--photo .bs__go{color:var(--pillar-lift)}
+  .bs--photo .bs__n,.bs--photo .bs__pillar{color:#fff}
   .bs::after{transform:scaleX(1)}
   .bs::before{transition:none}
   .card:hover{transform:none}
@@ -1354,32 +1366,37 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   letter-spacing:.18em;text-transform:uppercase;color:var(--pillar-ink,var(--blue-ink));
   display:block;margin-bottom:.7rem}
 .pil p{font-size:.92rem;line-height:1.55}
-.pil--research{--pillar:var(--blue);--pillar-ink:var(--blue-ink)}
-.pil--innovation{--pillar:var(--orange);--pillar-ink:var(--orange-ink)}
-.pil--growth{--pillar:var(--red);--pillar-ink:var(--red-ink)}
+.pil--research{--pillar:var(--blue);--pillar-ink:var(--blue-ink);--pillar-lift:var(--blue-lift)}
+.pil--innovation{--pillar:var(--orange);--pillar-ink:var(--orange-ink);--pillar-lift:var(--orange-lift)}
+.pil--growth{--pillar:var(--red);--pillar-ink:var(--red-ink);--pillar-lift:var(--red-lift)}
 .pil .triA::before{color:var(--pillar)}
 
 /* each service card carries its pillar's colour */
-.bs{--pillar:var(--blue);--pillar-ink:var(--blue-ink)}
-.bs--research{--pillar:var(--blue);--pillar-ink:var(--blue-ink)}
-.bs--innovation{--pillar:var(--orange);--pillar-ink:var(--orange-ink)}
-.bs--growth{--pillar:var(--red);--pillar-ink:var(--red-ink)}
+.bs{--pillar:var(--blue);--pillar-ink:var(--blue-ink);--pillar-lift:var(--blue-lift)}
+.bs--research{--pillar:var(--blue);--pillar-ink:var(--blue-ink);--pillar-lift:var(--blue-lift)}
+.bs--innovation{--pillar:var(--orange);--pillar-ink:var(--orange-ink);--pillar-lift:var(--orange-lift)}
+.bs--growth{--pillar:var(--red);--pillar-ink:var(--red-ink);--pillar-lift:var(--red-lift)}
 /* Colour-only modifiers, for cards that carry a brand colour without carrying a
    pillar — the About principles are not research/innovation/growth, and saying
    they were would empty the pillar names of meaning. */
-.bs--blue{--pillar:var(--blue);--pillar-ink:var(--blue-ink)}
-.bs--orange{--pillar:var(--orange);--pillar-ink:var(--orange-ink)}
-.bs--red{--pillar:var(--red);--pillar-ink:var(--red-ink)}
+.bs--blue{--pillar:var(--blue);--pillar-ink:var(--blue-ink);--pillar-lift:var(--blue-lift)}
+.bs--orange{--pillar:var(--orange);--pillar-ink:var(--orange-ink);--pillar-lift:var(--orange-lift)}
+.bs--red{--pillar:var(--red);--pillar-ink:var(--red-ink);--pillar-lift:var(--red-lift)}
 .bs__n{color:var(--pillar-ink)}
 .bs::after{content:"";position:absolute;left:0;top:0;height:3px;width:100%;
   background:var(--pillar);transform:scaleX(0);transform-origin:left;
   transition:transform .5s var(--e-out);z-index:2}
 .bs:hover::after{transform:scaleX(1)}
-.bs:hover .bs__go{color:var(--pillar)}  /* on ink, the graphic colour is legible */
+.bs:hover .bs__go{color:var(--pillar-lift)}  /* on ink, the graphic colour is legible */
+/* 0.58rem is small text, so it needs the full 4.5:1. The .62 opacity this used
+   to carry took it to 2.6:1 on the white card. And on the filled card the label
+   sits high, where the scrim is lightest — even the lifted pillar colour only
+   reaches 2-3:1 up there, while white measures 5.15:1 at worst. The colour is
+   already carried by the title and the top bar, so the label gives it up. */
 .bs__pillar{position:absolute;right:1.15rem;top:1.15rem;z-index:1;
   font-family:var(--f-body);font-weight:600;font-size:.58rem;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--pillar-ink);opacity:.62;transition:color .35s,opacity .35s}
-.bs:hover .bs__pillar{color:var(--pillar);opacity:1}
+  text-transform:uppercase;color:var(--pillar-ink);opacity:1;transition:color .35s}
+.bs:hover .bs__pillar,.bs:hover .bs__n{color:#fff}
 
 @media (max-width:900px){
   .pillars3__intro{grid-template-columns:1fr;gap:clamp(16px,3vw,24px);align-items:start}
@@ -1390,7 +1407,7 @@ body.menu-open .menu__foot{opacity:1;transform:none}
   /* No hover on touch, so every card shows its pillar bar. Showing it on only
      some of them reads as a rendering fault, not as a rhythm. */
   .big-svc .bs::after{transform:scaleX(1)}
-  .big-svc .bs .bs__pillar{opacity:1}
+  .big-svc .bs--photo .bs__pillar{color:#fff}
 }
 
 /* The four method steps walk the pillars: diagnose = research, design =
@@ -1401,9 +1418,9 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 .steps4 .st:nth-child(4) .st__n{color:var(--red)}
 
 /* Three commitments, three brand colours — the triangle again, on dark. */
-.slab__pts .slab__pt:nth-child(1) i{color:var(--blue)}
+.slab__pts .slab__pt:nth-child(1) i{color:var(--blue-lift)}
 .slab__pts .slab__pt:nth-child(2) i{color:var(--orange)}
-.slab__pts .slab__pt:nth-child(3) i{color:var(--red)}
+.slab__pts .slab__pt:nth-child(3) i{color:var(--red-lift)}
 
 /* =========================================================================
    VISION — the guidelines' vision, purpose and belief statements, set as the
@@ -1499,9 +1516,9 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 .hl--orange{color:var(--orange-ink)}
 .hl--red{color:var(--red-ink)}
 .slab .hl,.close .hl,.hl--inv{color:#fff}
-.slab .hl--blue,.close .hl--blue{color:var(--blue)}
+.slab .hl--blue,.close .hl--blue{color:var(--blue-lift)}
 .slab .hl--orange,.close .hl--orange{color:var(--orange)}
-.slab .hl--red,.close .hl--red{color:var(--red)}
+.slab .hl--red,.close .hl--red{color:var(--red-lift)}
 
 /* =========================================================================
    MISREGISTRATION
@@ -1528,7 +1545,7 @@ body.menu-open .menu__foot{opacity:1;transform:none}
              0 14px 34px -18px rgba(0,0,0,.5)}
 
 /* Service cards: the corner label prints off-register in its pillar colour. */
-.bs__pillar{transition:color .35s,opacity .35s,text-shadow .28s var(--e-out)}
+.bs__pillar{transition:color .35s,text-shadow .28s var(--e-out)}
 .bs:hover .bs__pillar,
 .bs:focus-visible .bs__pillar{
   text-shadow:calc(var(--misreg) * -1) 2px 0 var(--pillar)}
