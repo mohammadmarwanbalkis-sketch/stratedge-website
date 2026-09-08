@@ -1431,25 +1431,46 @@ body.menu-open .menu__foot{opacity:1;transform:none}
    THE TRIANGULAR A
    The guidelines' signature move: the A in a display heading is drawn as the
    logomark's bare triangle. Posterama has that glyph built in; Jost does not,
-   so it is drawn as a masked span. The real letter stays in the text for
-   screen readers and for copy-paste — only its rendering is replaced.
+   so it is drawn as a masked box. The real letter stays in the DOM for screen
+   readers and for copy-paste — only its rendering is replaced.
+
+   Alignment is the whole difficulty, and it is why this is a sized box rather
+   than a mark positioned inside the letter. An inline-block's height is its
+   LINE box, not its cap height, so anchoring the triangle to `bottom:0` of the
+   span put it below the baseline by the half-leading plus the descender —
+   which is what made it sit low and read small. Instead: `overflow:hidden` on
+   an inline-block moves its baseline to the bottom margin edge, so a box of
+   exactly cap height sits exactly on the text baseline, at any font size, in
+   any heading, whatever the line-height.
+
+   The two magic numbers are measured from Jost, not guessed:
+     cap height       0.700em
+     uppercase A set  0.618em   (its advance width, so the word's fit is intact)
    ========================================================================= */
-.triA{position:relative;display:inline-block;color:transparent;
-  vertical-align:baseline}
-.triA::before{content:"";position:absolute;left:50%;bottom:0;
-  transform:translateX(-50%);
-  /* Jost's cap height is ~0.70em, plus the overshoot a pointed apex needs to
-     read as the same height as the flat-topped caps beside it. */
-  width:.689em;height:.73em;
-  background:currentColor;color:var(--accent);
+.triA{
+  display:inline-block;
+  position:relative;
+  vertical-align:baseline;
+  overflow:hidden;            /* this is what puts the box on the baseline */
+  width:.618em;
+  height:.722em;              /* cap height + the overshoot a point needs */
+  line-height:1;
+  color:transparent;          /* the letter itself is never painted */
+}
+.triA::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:currentColor;
+  color:var(--accent);
   -webkit-mask:var(--triA-mask) center/contain no-repeat;
-          mask:var(--triA-mask) center/contain no-repeat}
+          mask:var(--triA-mask) center/contain no-repeat;
+}
 :root{
-  /* The geometry is set so the OUTER edge of the round-joined stroke lands
-     exactly on the viewBox: apex and base are inset by half the stroke width.
-     That makes the mask box equal to the drawn triangle, so sizing it to the
-     font's cap height lines the mark up with the letters beside it. */
-  --triA-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 72'%3E%3Cpath d='M34 2.3 L65.7 69.7 H2.3 Z' fill='none' stroke='%23000' stroke-width='4.6' stroke-linejoin='round'/%3E%3C/svg%3E");
+  /* Drawn on the letter's own proportions (0.618 : 0.700), with the outer edge
+     of the round-joined stroke landing exactly on the viewBox, so `contain`
+     fills the box rather than leaving slack inside it. */
+  --triA-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 72'%3E%3Cpath d='M31 2.4 L59.6 69.6 H2.4 Z' fill='none' stroke='%23000' stroke-width='4.6' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 /* on the dark surfaces the mark stays in the accent, as it does in the deck */
 .slab .triA::before,.close .triA::before,.bs--photo .triA::before{color:var(--accent)}

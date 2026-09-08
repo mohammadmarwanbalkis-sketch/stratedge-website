@@ -57,10 +57,21 @@ triangle. Anton's A has a crossbar.
 
 Posterama is a licensed Monotype face and cannot be served on the web without a purchased
 licence, so **Jost** stands in — the closest free geometric with the same wide, even,
-early-modern forms. The triangular A is restored separately by `.triA`, which masks a
-triangle over the letter at the font's cap height; the real letter stays in the DOM for
-screen readers and copy-paste. `splitText()` in `main.js` is word-aware so a `.triA` inside
-an animated heading stays inside its word instead of being split out of it.
+early-modern forms. The triangular A is restored separately by `.triA`; the real letter
+stays in the DOM for screen readers and copy-paste, and only its rendering is replaced.
+`splitText()` in `main.js` is word-aware so a `.triA` inside an animated heading stays
+inside its word instead of being split out of it.
+
+**Aligning it is the whole difficulty**, and it is why `.triA` is a sized box rather than a
+mark positioned inside the letter. An inline-block's height is its *line* box, not its cap
+height, so anchoring the triangle to `bottom:0` of the span put it below the baseline by the
+half-leading plus the descender — which is exactly what made it sit low and read small.
+`overflow:hidden` on an inline-block moves its baseline to the bottom margin edge, so a box
+of cap height sits on the text baseline at any font size, in any heading, whatever the
+line-height. The two numbers in that rule are measured from Jost, not guessed: cap height
+`0.700em`, uppercase A advance `0.618em` (so the word's fit is unchanged), plus a hair of
+overshoot because a pointed apex reads short against flat-topped caps. The responsive audit
+asserts the rendered height stays at `0.722em` on every page and breakpoint.
 
 Logo files were produced from the supplied PNG:
 `logo-light@900.png` is the original white wordmark (used on dark surfaces);
@@ -317,6 +328,15 @@ that way from the site's own Dubai photography, so a stock-photo grid becomes on
   daylight shots otherwise print at wildly different densities.
 - Grain is blurred to 0.9px. Sharper than that roughly doubles every file — WebP cannot
   encode high-frequency noise — and it is not worth it on a `fetchpriority="high"` hero.
+
+**Landmark substitutions.** Four plates were isolated portraits — two of the Burj Khalifa
+(innovation & AI) and two of the Burj Al Arab (sourcing & procurement), the building filling
+the frame as the subject. Emaar and Jumeirah both assert commercial-image rights over their
+towers, and an isolated portrait is the exposed case; a tower appearing among dozens in a
+cityscape is not. Those four are now printed from wide skylines instead — `band-dawn`, which
+was carrying no references at all, and `band-dusk` — each from a different region of the
+source via the `crop` argument, so the hero and the card of one service never repeat a
+composition. The `SWAPS` table in `tools/build_imagery.py` holds the crops.
 
 Re-run with `python3 tools/build_imagery.py`. It always works from the untouched originals in
 `assets/img/.photo-originals/`, so the treatment never compounds on itself.

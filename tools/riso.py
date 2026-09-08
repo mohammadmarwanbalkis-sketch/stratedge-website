@@ -100,13 +100,16 @@ def tri_points(size, cx, cy, w, h, rot=0.0):
 def riso(src, size, ground, accent, *, photo_strength=0.8, tri=None,
          tri_alpha=0.60, tri_outline=None, seed=7, grain_amount=12,
          ink=None, paper=None, curve=(0.12, 0.88, 1.05), invert_photo=False,
-         second=None, second_alpha=0.5, outline_only=False, outline_w=0.055):
+         second=None, second_alpha=0.5, outline_only=False, outline_w=0.055,
+         crop=None):
     """
     ground  — the sheet the image is printed on (bone or charcoal)
     accent  — the flat brand colour laid over it
     ink     — the darkest tone the photographic plate reaches
     paper   — the lightest tone it reaches (defaults to the ground)
     tri     — (cx, cy, w, h, rot) for the flat triangle, in canvas fractions
+    crop    — (x0, y0, x1, y1) region of the source to print, in fractions of
+              the source, so one photograph can yield plates that share nothing
     second  — an optional second flat shape, same tuple shape, in `accent2`
     """
     W, H = size
@@ -117,6 +120,10 @@ def riso(src, size, ground, accent, *, photo_strength=0.8, tri=None,
     base = Image.new("RGB", size, ground)
 
     # --- the photographic plate: one gritty ink, not a full-colour picture
+    if crop:
+        sw, sh = src.size
+        x0, y0, x1, y1 = crop
+        src = src.crop((int(x0 * sw), int(y0 * sh), int(x1 * sw), int(y1 * sh)))
     ph = ImageOps.fit(src.convert("L"), size, Image.LANCZOS, centering=(0.5, 0.45))
     # normalise first: night shots and daylight shots otherwise print at wildly
     # different densities and the set stops reading as one press run
