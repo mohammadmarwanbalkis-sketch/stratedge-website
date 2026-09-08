@@ -1337,7 +1337,7 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 .pillars3__intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
   gap:clamp(24px,4vw,64px);align-items:end;margin-bottom:clamp(34px,4.4vw,60px)}
 .pillars3__intro .say{margin:0;max-width:52ch}
-.pillars3__intro b{font-weight:600;color:var(--text)}
+.pillars3__intro b:not([class]){font-weight:600;color:var(--text)}
 .pillars3__list{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,40px);
   position:relative}
 .pil{border-top:1px solid var(--line);padding-top:1.3rem;--pillar:var(--blue)}
@@ -1456,3 +1456,20 @@ body.menu-open .menu__foot{opacity:1;transform:none}
 @media (prefers-reduced-motion:no-preference){
   .triA::before{transition:color .4s var(--e-out)}
 }
+
+/* =========================================================================
+   COLOURED KEYWORDS
+   The deck's most distinctive text device: the operative words inside a
+   sentence set bold and in a brand colour (p4 sets "research, innovation, and
+   strategy" orange and "thrive, transform, and redefine" red). The graphic
+   orange is 1.9:1 on white, so the text-safe variants are used here.
+   ========================================================================= */
+.hl{font-weight:600;color:var(--text)}
+.vision__lead .hl,.h-mega .hl,.h-big .hl{font-weight:400}
+.hl--blue{color:var(--blue-ink)}
+.hl--orange{color:var(--orange-ink)}
+.hl--red{color:var(--red-ink)}
+.slab .hl,.close .hl,.hl--inv{color:#fff}
+.slab .hl--blue,.close .hl--blue{color:var(--blue)}
+.slab .hl--orange,.close .hl--orange{color:var(--orange)}
+.slab .hl--red,.close .hl--red{color:var(--red)}
