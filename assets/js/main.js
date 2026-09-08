@@ -88,26 +88,47 @@
   --------------------------------------------------------------- */
   function splitText(el) {
     if (el.dataset.split === 'done') return;
-    (function walk(node) {
+
+    /* Word-aware split that survives inline markup. A heading may contain a
+       <span class="triA">A</span>, and that letter belongs INSIDE its word —
+       splitting it out would break the word into separately animating boxes
+       and lose the kerning across the seam. So collect a flat token stream
+       first, then rebuild whole words that can hold both text and elements. */
+    var words = [], cur = null;
+    function open() { if (!cur) { cur = []; words.push(cur); } return cur; }
+    function close() { cur = null; }
+    (function collect(node) {
       Array.prototype.slice.call(node.childNodes).forEach(function (n) {
         if (n.nodeType === 3) {
-          var frag = document.createDocumentFragment();
           n.textContent.split(/(\s+)/).forEach(function (w) {
             if (!w) return;
-            if (/^\s+$/.test(w)) { frag.appendChild(document.createTextNode(' ')); return; }
-            var m = document.createElement('span'); m.className = 'wm';
-            var s = document.createElement('span'); s.className = 'wd';
-            s.textContent = w; m.appendChild(s); frag.appendChild(m);
+            if (/^\s+$/.test(w)) { close(); words.push(' '); return; }
+            open().push(document.createTextNode(w));
           });
-          node.replaceChild(frag, n);
-        } else if (n.nodeType === 1 && !n.classList.contains('wm')) walk(n);
+        } else if (n.nodeType === 1) {
+          if (n.classList.contains('triA')) open().push(n.cloneNode(true));
+          else collect(n);
+        }
       });
     })(el);
+
+    var frag = document.createDocumentFragment();
+    words.forEach(function (w) {
+      if (w === ' ') { frag.appendChild(document.createTextNode(' ')); return; }
+      var m = document.createElement('span'); m.className = 'wm';
+      var d = document.createElement('span'); d.className = 'wd';
+      w.forEach(function (part) { d.appendChild(part); });
+      m.appendChild(d); frag.appendChild(m);
+    });
+    el.textContent = '';
+    el.appendChild(frag);
+
     $$('.wd', el).forEach(function (w, i) {
       w.style.setProperty('--wd', (i * 0.042).toFixed(3) + 's');
     });
     el.dataset.split = 'done';
   }
+
 
   /* ---------------------------------------------------------------
      3. REVEALS

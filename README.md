@@ -20,29 +20,47 @@ website/
 
 ## Brand
 
-Taken from the client's brand guidelines (`Stratedge consultants-3.pdf`).
+Taken from the client's brand guidelines (`Stratedge consultants-3.pdf`) — from the
+deck's own art direction, not only its spec pages. See **Brand guidelines** below for
+where the two disagree.
 
 | Token | Value | Use |
 |---|---|---|
 | White | `#ffffff` | Primary surface — the site is white-first throughout |
-| Blue | `#518a9c` | Trust, stability, expertise. Carries the **Research** pillar |
-| Red | `#d0423a` | Energy, bold action. Carries the **Growth** pillar; primary CTA and accent |
+| Blue | `#518a9c` | **Lead colour.** Trust, stability, expertise; carries the **Research** pillar. Listed first and given the widest swatch in the deck, and the default logomark is blue |
+| Red | `#d0423a` | Energy, bold action. Carries the **Growth** pillar |
 | Orange | `#f5b02f` | Creativity, innovation. Carries the **Innovation** pillar |
-| Ink | `#0a0e11` | Text and the dark contrast sections |
-| Paper | `#f7f7f8` | Alternating section background |
+| Ink | `#242525` | Warm charcoal — the deck's dark, sampled from its own spreads. Not a cold near-black |
+| Paper | `#f5f4f2` | Alternating section background |
+
+Every generic UI accent — buttons, links, eyebrow dots, focus rings, corner marks — reads
+`--accent`, which points at blue. Re-pointing those four lines in `:root` re-themes the
+site; red survives only where it means the Growth pillar.
 
 The blue and orange are *graphic* colours: on white they measure 3.8:1 and 1.9:1, which is fine
 for bars, rules and the triangle but unreadable as small type. Labels therefore use text-safe
 variants — `--blue-ink #3e6c7b`, `--orange-ink #8a6208`, `--red-ink #b8372f` — all above 4.5:1.
 Anywhere the colour sits on ink, the pure brand value is used instead.
 
-Typography: **Anton** (display headings), **Jost Light** (titles), **Poppins** (body and labels),
-loaded from Google Fonts with system fallbacks. The guidelines specify Posterama 2001 Light for
-the title role; it is a licensed Monotype face and cannot be served on the web without a
-purchased licence, so Jost stands in — the closest free geometric with the same wide, even,
-early-modern feel. **Anton ships a single weight**, so no rule asks it for bold; anything that
-needed a heavier small label was moved to Jost Medium rather than letting the browser
-synthesise a smeared faux-bold.
+Typography: **Jost** (display, Light/ExtraLight) and **Poppins** (body and labels), loaded
+from Google Fonts with system fallbacks.
+
+The guidelines name Anton under HEADING, and the site was built that way at first. That was
+wrong. Every heading the deck itself sets — cover, contents, INTRODUCTIONS, CORE VALUE,
+LOGO USAGE, COLOR PALETTE, TYPOGRAPHY, SERVICES, THANK YOU — is **Posterama 2001 Light**,
+the thin wide geometric. Anton appears in none of its layouts. Page 8 gives it away twice:
+the specimen labelled "HEADING 1" sits directly under the words *Title – posterama 2001
+light* and is set in that face, and the two "AA" specimens beside it are *both* labelled
+"ANTON – REGULAR" while only one of them is Anton. The rationale settles it — *"the
+triangular 'A' nods to our signature symbol"* describes Posterama, whose A is a bare
+triangle. Anton's A has a crossbar.
+
+Posterama is a licensed Monotype face and cannot be served on the web without a purchased
+licence, so **Jost** stands in — the closest free geometric with the same wide, even,
+early-modern forms. The triangular A is restored separately by `.triA`, which masks a
+triangle over the letter at the font's cap height; the real letter stays in the DOM for
+screen readers and copy-paste. `splitText()` in `main.js` is word-aware so a `.triA` inside
+an animated heading stays inside its word instead of being split out of it.
 
 Logo files were produced from the supplied PNG:
 `logo-light@900.png` is the original white wordmark (used on dark surfaces);
@@ -266,9 +284,47 @@ structural device rather than a statement:
   Sustain = growth. The three commitments on the dark photo band use the three colours in
   order, as an echo of the triangle.
 
-**Still outstanding from the guidelines:**
+**Art direction — corrected after a full read of the deck.** The first pass at the
+guidelines read only the spec pages (palette, font names, pillars) and produced a heavy
+black Anton poster site. Rendering all twelve spreads showed the deck is the opposite:
+thin wide display type, blue leading, warm charcoal darks, hairline rules, and a large
+quiet triangle. What changed:
 
-- **Vision and positioning copy** from the guidelines has not yet replaced the About page copy.
+| | Before | Now |
+|---|---|---|
+| Display type | Anton, heavy condensed | Jost Light/ExtraLight, tracked out |
+| Lead colour | Red | Blue |
+| Dark surface | `#0a0e11` | `#242525` |
+| Logomark | Red triangle | Blue triangle (PNG, WebP, favicons, OG image; originals kept in `assets/img/.red-originals/`) |
+| Service names | Uppercase Anton | Poppins SemiBold in the pillar colour, as pp.9–10 set them |
+| The A | Ordinary letter | `.triA` — the logomark triangle, on pillar names and headings that open on an A |
+| Pillars | One tricolour triangle | Three coloured logomarks, as p6 shows them |
+
+**Copy folded in from the deck** (it had been paraphrased or missing): the cover strapline,
+the 360°/"from setup to growth" positioning claim, the "we don't just consult — we partner"
+line, the full core-value statement, the triangle rationale (now the pillars section's own
+copy), "guiding businesses through change with precision and foresight", and the belief line
+in the footer of every page.
+
+**Still outstanding — needs the client:**
+
+- **Imagery.** The deck's art direction is textured, risograph-style *illustration* with
+  triangle geometry in the brand colours on a `#cecabe` bone ground — a handshake split by a
+  triangle, hands assembling a jigsaw, a crowd walking toward a triangle. The site uses real
+  Dubai skyline photography duotoned in ink. This is the largest remaining gap and the one
+  that needs a budget decision, because matching it means commissioning or generating a new
+  image set rather than recolouring the existing one.
+- **The pillar colour mapping is ambiguous in the source.** Read positionally, p6 gives
+  orange=Research, blue=Innovation, red=Growth. Read by the stated meanings on p7 — blue is
+  trust/expertise, orange is creativity, red is energy — you get blue=Research,
+  orange=Innovation, red=Growth. The site implements the second. Confirm with the client.
+- **p9 lists only five distinct services**: "Innovation & Artificial Intelligence Research &
+  Consultancies" appears as both №3 and №4, and Marketing Research is missing from that page
+  (it is present on p10). The site carries all six correctly.
+- **Service naming.** The deck pluralises — "Advertising Research & Consultanc**ies**". The
+  site uses the singular throughout. Confirm which the client wants.
+- **The business card on p5 is placeholder** — "John Smith, +971-58-234-2345, Dubai, Business
+  bay, 1234" — but it implies a real Business Bay address the site does not have.
 
 ## Launch checklist — the five things only you can do
 
